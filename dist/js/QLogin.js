@@ -120,3 +120,19 @@ var bg = {
 	error: { class: "bg-danger", loc: "topRight", delay: 10000 },
 	info: { class: "bg-info", loc: "bottomRight", delay: 4000 },
 };
+
+function gettheversion() {
+	$.ajax({
+		url: "api/v1/info/cversion",
+		async: true,
+		type: "GET",
+		data: { token: 0},
+		success: function (data) {
+			$("#thever").text('ver: ' + data.cversion)
+		}
+	});
+}
+
+$(document).ready(function () {
+	gettheversion();
+});

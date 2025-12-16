@@ -1,0 +1,7 @@
+.version-text {
+	margin-top: -20px;
+	z-index: 2;
+	position: relative;
+	color: #495BE2;
+	font-weight: bold;
+}
