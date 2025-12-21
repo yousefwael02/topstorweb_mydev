@@ -17,11 +17,12 @@ function postlogin(url, data) {
 	$.ajax({
 		url: url,
 		dataType: "json",
-		type: "GET",
+		type: "POST",
+		contentType: "appliacation/json",
 		async: false,
-		data: data,
-		success: function (token) {
-			hypetoken = token["token"];
+		data: JSON.stringify(data),
+		success: function (res) {
+			hypetoken = res["token"];
 		},
 	});
 	if (hypetoken.includes("init") < 1) {

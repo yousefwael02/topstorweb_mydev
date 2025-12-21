@@ -382,7 +382,7 @@
                   </div>
                   <div class="form-group row">
                     <label for="User" class=' col-2'>Node Name</label>
-                    <input type="text" class="form-control runningnodes col-2" id="BoxName" placeholder="Node Name">
+                    <input type="text" class="form-control runningnodes col-2" id="BoxName" placeholder="e.g. node-01">
                     <div  class="form-control bg-secondary col-2 color-palette ml-auto"><span id="cBoxName">node_1</span></div>
                   </div>
                 
@@ -390,7 +390,7 @@
                     <label  for="IPAddress" class=' col-2'>Node Address</label>
                     <div class="d-flex col-6 p-0">
 			<div class="d-flex col-8 p-0">
-				<input type="text" placeholder="xxx.xxx.xxx.xxx" 
+				<input type="text" placeholder="e.g. 11.10.10.241" 
                          		class="form-control col-6 runningnodes ipaddress" name="IPAddress" \
                           		id="IPAddress"  data-inputmask="'alias': 'ip'"> 
                                 <input type="number"  min="8" max="32" step="8" value=24 class="col-4 ml-2 form-control runningnodes"  id="ipaddrsubnet">
@@ -412,7 +412,7 @@
                     <label  for="Mgmt" class=' col-2'>Cluster Address</label>
                     <div class="d-flex col-6 p-0">
                         <div class="d-flex col-8 p-0">
-                    		<input type="text" placeholder="xxx.xxx.xxx.xxx" class="form-control runningnodes ipaddress col-6" 
+                    		<input type="text" placeholder="e.g. 10.11.11.249" class="form-control runningnodes ipaddress col-6" 
                          		name="IPAddress" id="Mgmt"  data-inpiutmask="'alias': 'ip'">
                                 <input type="number"  min="8" max="32" step="8" value=24 class="col-4 ml-2 form-control runningnodes col-1"  id="MgmtSub">
                         </div>
@@ -430,7 +430,7 @@
                   </div>
                   <div class="form-group row">
                     <label  for="mports" class="col-2 col-form-label">Data Ports</label>
-                    <select  class="runningnodes select2 multiple form-control col-5" multiple="multiple"id="dports" data-placeholder="Select ports">
+                    <select  class="runningnodes select2 multiple form-control col-5" multiple="multiple"id="dports" data-placeholder="Select network interfacesg">
                         <option>eth1</option>
                         <option>eth2</option>
                         <option>eth3</option>
@@ -444,7 +444,7 @@
                     <label for="TZ" class=' col-2'>Time Zone</label>
                     <select id='TZ' class="select2  runningnodes col-4" style="margin-top:5px;">
                     <option id="dimthis" city='0' timeZoneId="-1" value="-100"  style="
-                          color: #939ba2;">-----------</option>
+                          color: #939ba2;">Select time zone</option>
                     <option city='International' timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
                     <option city='Midway' timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
                     <option city='Hawaii' timeZoneId="3" gmtAdjustment="GMT-10:00" useDaylightTime="0" value="-10">(GMT-10:00) Hawaii</option>
@@ -534,11 +534,11 @@
                     <label  for="NTP" class=' col-2'>NTP Server</label>
 		    <div class="d-flex col-6 p-0 justify-content-between"> 
 		    	<div class="col-4 p-0">
-                    		<input type="text" placeholder="xxx.xxx.xxx.xxx" class="form-control runningnodes ipaddress" name="IPAddress" id="NTP"  data-inputmask="'alias': 'ip'">
+                    		<input type="text" placeholder="e.g. 10.11.11.10" class="form-control runningnodes ipaddress" name="IPAddress" id="NTP"  data-inputmask="'alias': 'ip'">
                     	</div>
 		    	<div class='d-flex col-6 ml-5'>
 		    		<label for="NTPname">Name</label>
-		    		<input type="text" placeholder="NTP Name" class="ml-3 form-control runningnodes name" name="NTPname" id="NTPname">
+		    		<input type="text" placeholder="e.g. ntp01" class="ml-3 form-control runningnodes name" name="NTPname" id="NTPname">
                     	</div>
 		    </div>
 		    <div  class="form-control bg-secondary col-2 color-palette ml-auto"><span id="cNTP">4.4.4.2</span>
@@ -548,11 +548,11 @@
                     <label  for="NTP" class=' col-2'>DNS Server</label>
 		    <div class="d-flex col-6 p-0 justify-content-between"> 
 		    	<div class="col-4 p-0">
-                    		<input type="text" placeholder="xxx.xxx.xxx.xxx" class="form-control runningnodes ipaddress" name="DNSname" id="DNSname"  data-inputmask="'alias': 'ip'">
+                    		<input type="text" placeholder="e.g. 10.11.11.53" class="form-control runningnodes ipaddress" name="DNSname" id="DNSname"  data-inputmask="'alias': 'ip'">
 			</div>
 		    	<div class='d-flex col-6 ml-5'>
 				<label for="DNSsearch">Search</label>
-				<input type="text" placeholder="Domain Name" class="ml-3 form-control runningnodes name" name="DNSsearch" id="DNSsearch">
+				<input type="text" placeholder="e.g. cluster.example.com" class="ml-3 form-control runningnodes name" name="DNSsearch" id="DNSsearch">
                     	</div>
 		    </div>
 		    <div  class="form-control bg-secondary col-2 color-palette ml-auto" style="margin-left: 0.2rem;"><span id="cDNS">4.4.4.2</span>
@@ -560,7 +560,7 @@
                   </div>
                   <div class="form-group row" >
                     <label  for="GW" class=' col-2'>Gateway/router</label>
-                    <input type="text" placeholder="xxx.xxx.xxx.xxx" class="form-control runningnodes col-2 ipaddress" name="IPAddress" id="GW"  data-inputmask="'alias': 'ip'">
+                    <input type="text" placeholder="e.g. 10.11.11.1" class="form-control runningnodes col-2 ipaddress" name="IPAddress" id="GW"  data-inputmask="'alias': 'ip'">
                     <div  class="form-control bg-secondary col-2 color-palette ml-auto"><span id="cGW">10.11.11.1</span>
                     </div>
                   </div>
