@@ -3,36 +3,33 @@ import Dropdown from './Common/Dropdown';
 
 const GroupList = ({ groups, users, onUpdateMembers, onDelete }) => {
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 relative group hover:shadow-md transition-all duration-300 mt-8">
-            {/* Theme Accent Line */}
-            <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-2xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
-
-            <div className="px-6 py-5 border-b border-gray-50 bg-gray-50/30 flex justify-between items-center">
-                <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
-                        <i className="fas fa-users"></i>
-                    </div>
+        <section className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm">
+            <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
+                <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
+                        <i className="fas fa-users" />
+                    </span>
                     <div>
-                        <h3 className="text-lg font-bold text-gray-800 tracking-tight">System Groups Directory</h3>
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mt-0.5">Permissions & Access Control</p>
+                        <h3 className="text-base font-semibold text-gray-800">System Groups Directory</h3>
+                        <p className="text-sm text-gray-500">Permissions &amp; access control</p>
                     </div>
                 </div>
-                <div className="px-4 py-1.5 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold border border-indigo-100 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                    {groups.length} Active Groups
-                </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-3 py-1 text-xs font-medium text-gray-600">
+                    <span className="h-1.5 w-1.5 rounded-full bg-success-500" />
+                    {groups.length} groups
+                </span>
             </div>
 
             <div className="overflow-x-auto">
                 <table className="w-full text-left">
                     <thead>
-                        <tr className="bg-gray-50/50 border-b border-gray-100">
-                            <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Group Name</th>
-                            <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Members</th>
-                            <th className="px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider text-right">Actions</th>
+                        <tr className="border-b border-border bg-surface-muted">
+                            <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Group Name</th>
+                            <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Members</th>
+                            <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-500">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-50">
+                    <tbody className="divide-y divide-border">
                         {groups.map((group) => (
                             <GroupRow
                                 key={group.name}
@@ -44,24 +41,15 @@ const GroupList = ({ groups, users, onUpdateMembers, onDelete }) => {
                         ))}
                         {groups.length === 0 && (
                             <tr>
-                                <td colSpan="3" className="text-center py-20 text-gray-400">
-                                    <div className="flex flex-col items-center gap-4">
-                                        <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center text-3xl">
-                                            <i className="fas fa-users-slash opacity-20"></i>
-                                        </div>
-                                        <p className="font-bold">No groups found in system</p>
-                                    </div>
+                                <td colSpan="3" className="text-center py-16 text-sm text-gray-400">
+                                    No groups found in system
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             </div>
-
-            <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-100 flex justify-between items-center">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Directory Services v2.0</p>
-            </div>
-        </div>
+        </section>
     );
 };
 
@@ -100,17 +88,17 @@ const GroupRow = ({ group, allUsers, onUpdateMembers, onDelete }) => {
     const isEveryoneGroup = group.name === 'Everyone';
 
     return (
-        <tr className="hover:bg-indigo-50/10 transition-colors group/row">
-            <td className="px-6 py-5">
+        <tr className="hover:bg-gray-50/60 transition-colors">
+            <td className="px-5 py-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-indigo-500 font-bold text-sm border-2 border-white shadow-sm">
-                        <i className="fas fa-users text-xs"></i>
-                    </div>
-                    <span className="font-bold text-gray-700">{group.name}</span>
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-50 text-brand-600 text-xs">
+                        <i className="fas fa-users" />
+                    </span>
+                    <span className="font-medium text-gray-800">{group.name}</span>
                 </div>
             </td>
-            <td className="px-6 py-5 min-w-[300px]">
-                <div className="flex items-center gap-3">
+            <td className="px-5 py-4 min-w-[280px]">
+                <div className="flex items-center gap-2">
                     <div className="flex-1">
                         <Dropdown
                             isMulti
@@ -118,31 +106,36 @@ const GroupRow = ({ group, allUsers, onUpdateMembers, onDelete }) => {
                             value={selectedUsers}
                             onChange={handleUserChange}
                             disabled={isEveryoneGroup}
-                            placeholder="Select Users..."
+                            placeholder="Select Users…"
                         />
                     </div>
                     {hasChanges && (
                         <button
                             onClick={handleUpdate}
-                            className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl hover:bg-emerald-600 hover:text-white transition-all shadow-sm border border-emerald-100 flex-shrink-0 animate-bounce"
+                            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md border border-success-100 bg-success-50 text-success-600 hover:bg-success-600 hover:text-white transition-colors"
                             title="Apply Changes"
                         >
-                            <i className="fas fa-check"></i>
+                            <i className="fas fa-check" />
                         </button>
                     )}
                 </div>
             </td>
-            <td className="px-6 py-5 text-right">
+            <td className="px-5 py-4 text-right">
                 <button
                     onClick={() => onDelete(group.name)}
-                    className={`w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center transition-all border border-transparent ${isEveryoneGroup ? 'opacity-20 cursor-not-allowed' : 'text-gray-400 hover:bg-rose-50 hover:text-rose-600 hover:shadow-lg hover:shadow-rose-100 hover:border-rose-100'}`}
+                    className={`inline-flex h-9 w-9 items-center justify-center rounded-md bg-gray-50 transition-colors ${
+                        isEveryoneGroup
+                            ? 'cursor-not-allowed opacity-30'
+                            : 'text-gray-400 hover:border hover:border-danger-100 hover:bg-danger-50 hover:text-danger-600'
+                    }`}
                     disabled={isEveryoneGroup}
                 >
-                    <i className="fas fa-trash-alt"></i>
+                    <i className="fas fa-trash-alt" />
                 </button>
             </td>
         </tr>
     );
+
 };
 
 export default GroupList;

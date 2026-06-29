@@ -123,16 +123,38 @@ function App() {
         }
     };
 
+    const getPageTitle = (view) => {
+        switch (view) {
+            case 'users': return 'Users';
+            case 'groups': return 'Groups';
+            case 'nodes': return 'Nodes';
+            case 'logs': return 'Logs';
+            case 'performance': return 'Service Performance';
+            case 'cifs': return 'CIFS';
+            case 'nfs': return 'NFS';
+            case 'home': return 'Home Folders';
+            case 'iscsi': return 'ISCSI LUNs';
+            case 'snapshots': return 'Snapshots';
+            case 'privileges': return 'User Privileges';
+            case 'updates': return 'Updates';
+            case 'diskgroups': return 'Disk Groups';
+            case 'partners': return 'Partners';
+            case 'sender': return 'Sender Schedule';
+            case 'received': return 'Received Snapshots';
+            default: return 'Nodes';
+        }
+    };
+
     // Show a loading state while the token is being validated
     if (authChecking) {
         return (
-            <div className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-canvas">
                 <img
                     src="dist/img/Quickstor icon.png"
                     alt="Loading"
                     className="w-16 h-16 mb-4 animate-pulse"
                 />
-                <span className="text-gray-500 font-medium text-sm tracking-wide">Verifying session...</span>
+                <span className="text-gray-500 font-medium text-sm">Verifying session...</span>
             </div>
         );
     }
@@ -141,52 +163,59 @@ function App() {
         return <QLogin onLoginSuccess={() => setIsAuthenticated(true)} />;
     }
 
-    return (
-        <div className="wrapper wrapper-index">
-            <NotificationPoller />
-            <Navbar sectionTitle={getSectionTitle(view)} />
-            <Sidebar />
-            {view === 'users' && <QUsers />}
-            {view === 'groups' && <QGroups />}
-            {view === 'logs' && <QLogs />}
-            {view === 'performance' && <QServicePerformance />}
-            {view === 'cifs' && <QCifs />}
-            {view === 'nfs' && <QNfs />}
-            {view === 'home' && <QHomeFolders />}
-            {view === 'iscsi' && <QIscsi />}
-            {view === 'snapshots' && <QSnapshots />}
-            {view === 'privileges' && <QUserPrivileges />}
-            {view === 'updates' && <QUpdates />}
-            {view === 'diskgroups' && <QDisks />}
-            {view === 'partners' && <QPartners />}
-            {view === 'sender' && <QSender />}
-            {view === 'received' && <QReceived />}
-            {view === 'nodes' && <QNodes />}
-            {/* Footer */}
-            <footer className="main-footer">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-body p-0">
-                                <table className="table table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th> Task</th>
-                                            <th> Node</th>
-                                            <th>Progress</th>
-                                            <th style={{ width: '40px' }}>Label</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tasktable">
+    const closeMobileSidebar = () => document.body.classList.remove('sidebar-mobile-open');
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            {/* /.card-body */}
-                        </div>
-                    </div>
+    return (
+        <div className="flex min-h-screen">
+            <NotificationPoller />
+
+            {/* Mobile backdrop */}
+            <div className="sidebar-backdrop" onClick={closeMobileSidebar} />
+
+            <Sidebar />
+
+            <main className="main-content flex-1 lg:ml-[260px] flex flex-col min-h-screen">
+                <Navbar
+                    sectionTitle={getSectionTitle(view)}
+                    pageTitle={getPageTitle(view)}
+                />
+
+                <div className="flex-1">
+                    {view === 'users' && <QUsers />}
+                    {view === 'groups' && <QGroups />}
+                    {view === 'logs' && <QLogs />}
+                    {view === 'performance' && <QServicePerformance />}
+                    {view === 'cifs' && <QCifs />}
+                    {view === 'nfs' && <QNfs />}
+                    {view === 'home' && <QHomeFolders />}
+                    {view === 'iscsi' && <QIscsi />}
+                    {view === 'snapshots' && <QSnapshots />}
+                    {view === 'privileges' && <QUserPrivileges />}
+                    {view === 'updates' && <QUpdates />}
+                    {view === 'diskgroups' && <QDisks />}
+                    {view === 'partners' && <QPartners />}
+                    {view === 'sender' && <QSender />}
+                    {view === 'received' && <QReceived />}
+                    {view === 'nodes' && <QNodes />}
                 </div>
-            </footer>
+
+                {/* Footer task table */}
+                <footer className="border-t border-border bg-surface px-5 py-3">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left text-sm">
+                            <thead>
+                                <tr className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                                    <th className="py-2 pr-4">Task</th>
+                                    <th className="py-2 pr-4">Node</th>
+                                    <th className="py-2 pr-4">Progress</th>
+                                    <th className="py-2" style={{ width: '40px' }}>Label</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasktable" className="text-gray-700" />
+                        </table>
+                    </div>
+                </footer>
+            </main>
         </div>
     );
 }

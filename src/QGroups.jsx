@@ -63,45 +63,32 @@ const QGroups = () => {
     };
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-10">
-                            <div>
-                                <p className="text-lg text-gray-500 font-medium tracking-tight">Manage system groups, permissions, and directory memberships</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Button
-                                    onClick={loadData}
-                                    bgColor="bg-white"
-                                    textColor="text-gray-700"
-                                    className="border border-gray-200 hover:bg-gray-50 hover:text-blue-600 rounded-xl"
-                                    icon={<i className="fas fa-sync-alt opacity-70"></i>}
-                                >
-                                    Sync Now
-                                </Button>
-                            </div>
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Group Management</h1>
+                        <p className="mt-1 text-sm text-gray-500">Manage system groups, permissions, and directory memberships</p>
                     </div>
+                    <Button variant="secondary" onClick={loadData} icon={<i className="fas fa-sync-alt" />} className="w-full sm:w-auto">
+                        Sync Now
+                    </Button>
                 </div>
 
-                <div className="content px-4">
-                    <div className="container-fluid space-y-8">
-                        {/* Add Group Section */}
-                        <AddGroupForm
-                            users={users}
-                            onAdd={handleAddGroup}
-                        />
+                <div className="mt-6 space-y-6">
+                    {/* Add Group Section */}
+                    <AddGroupForm
+                        users={users}
+                        onAdd={handleAddGroup}
+                    />
 
-                        {/* Group List Section */}
-                        <GroupList
-                            groups={groups}
-                            users={users}
-                            onUpdateMembers={handleUpdateMembers}
-                            onDelete={handleDeleteGroup}
-                        />
-                    </div>
+                    {/* Group List Section */}
+                    <GroupList
+                        groups={groups}
+                        users={users}
+                        onUpdateMembers={handleUpdateMembers}
+                        onDelete={handleDeleteGroup}
+                    />
                 </div>
             </div>
         </div>

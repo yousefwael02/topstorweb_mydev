@@ -1,89 +1,59 @@
 import React from 'react';
-import { Activity, AlertCircle, Plus, Server } from 'lucide-react';
+import { Server } from 'lucide-react';
 
-/**
- * @typedef {Object} ServerNodeProps
- * @property {string} name - The server hostname (e.g., "qs-node-01")
- * @property {string} ip - The IP address (e.g., "192.168.1.10")
- * @property {'up' | 'down' | 'discovered'} state - Current status of the server
- * @property {string} [className] - Optional additional classes
- * @property {function} [onClick] - Optional click handler
- */
+const STATE_CONFIG = {
+    up: {
+        dot: 'bg-success-500',
+        dotLabel: 'text-success-700',
+        label: 'Online',
+        ring: 'border-brand-500 ring-4 ring-brand-100 bg-brand-50/40',
+        iconBg: 'bg-brand-100 text-brand-600',
+        resting: 'border-border bg-surface hover:border-border-strong hover:bg-gray-50',
+        restingIcon: 'bg-gray-100 text-gray-500',
+    },
+    down: {
+        dot: 'bg-danger-500',
+        dotLabel: 'text-danger-700',
+        label: 'Offline',
+        ring: 'border-brand-500 ring-4 ring-brand-100 bg-brand-50/40',
+        iconBg: 'bg-brand-100 text-brand-600',
+        resting: 'border-border bg-surface hover:border-border-strong hover:bg-gray-50',
+        restingIcon: 'bg-gray-100 text-gray-500',
+    },
+    discovered: {
+        dot: 'bg-brand-500',
+        dotLabel: 'text-brand-700',
+        label: 'Discovered',
+        ring: 'border-brand-500 ring-4 ring-brand-100 bg-brand-50/40',
+        iconBg: 'bg-brand-100 text-brand-600',
+        resting: 'border-border bg-surface hover:border-border-strong hover:bg-gray-50',
+        restingIcon: 'bg-gray-100 text-gray-500',
+    },
+};
 
 const ServerNode = ({ name, ip, state = 'up', selected = false, className = '', onClick }) => {
-    // State configurations
-    const config = {
-        up: {
-            themeText: 'text-emerald-500',
-            icon: Activity,
-            ledActive: 'bg-emerald-500 animate-pulse',
-            ledPassive: 'bg-emerald-500/50',
-            border: 'border-#a4adf1',
-            text: 'text-black',
-            bg: 'bg-[#edeffc]',
-            ring: 'ring-emerald-500'
-        },
-        down: {
-            themeText: 'text-rose-500',
-            icon: AlertCircle,
-            ledActive: 'bg-rose-900',
-            ledPassive: 'bg-rose-900/50',
-            border: 'border-#a4adf1',
-            text: 'text-black',
-            bg: 'bg-[#edeffc]',
-            ring: 'ring-rose-500'
-        },
-        discovered: {
-            themeText: 'text-blue-500',
-            icon: Server,
-            ledActive: 'bg-blue-500',
-            ledPassive: 'bg-blue-500/50',
-            border: 'border-blue-500/30',
-            text: 'text-black',
-            bg: 'bg-[#edeffc]',
-            ring: 'ring-blue-500'
-        }
-    };
-
-    const currentConfig = config[state] || config.up;
-    const Icon = currentConfig.icon;
+    const cfg = STATE_CONFIG[state] ?? STATE_CONFIG.up;
 
     return (
-        <div
+        <button
+            type="button"
             onClick={onClick}
-            className={`
-                relative flex items-center justify-between
-                p-3 sm:p-4 rounded
-                border ${currentConfig.border}
-                ${currentConfig.bg}
-                ${selected ? `ring-2 ${currentConfig.ring}` : ''}
-                transition-all duration-200
-                cursor-pointer
-                group
-                ${className}
-            `}
+            className={`group flex w-full items-center gap-3 rounded-lg border px-3.5 py-3 text-left min-h-[60px] transition-colors
+                ${selected ? cfg.ring : cfg.resting}
+                ${className}`}
         >
-            {/* Left Side: LED Bars */}
-            <div className="flex gap-1 mr-3">
-                <div className={`w-1 h-6 sm:h-8 rounded-full ${currentConfig.ledActive}`}></div>
-                <div className={`w-1 h-6 sm:h-8 rounded-full ${currentConfig.ledPassive}`}></div>
-            </div>
-
-            {/* Middle: Text Info */}
-            <div className="flex-1 min-w-0 mr-3">
-                <div className="font-mono text-xs sm:text-sm text-black font-medium truncate">
-                    {name}
-                </div>
-                <div className="font-mono text-[10px] sm:text-xs text-gray-500 truncate">
-                    {ip}
-                </div>
-            </div>
-
-            {/* Right Side: Status Icon */}
-            <div className={`${currentConfig.themeText}`}>
-                <Icon size={20} className={state === 'up' ? 'animate-pulse' : ''} />
-            </div>
-        </div>
+            <span className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md ${selected ? cfg.iconBg : cfg.restingIcon}`}>
+                <Server className="h-[18px] w-[18px]" />
+            </span>
+            <span className="min-w-0 flex-1">
+                <span className="block truncate text-sm font-semibold text-gray-800">{name}</span>
+                <span className="block truncate font-mono text-xs text-gray-500">{ip}</span>
+            </span>
+            <span className="flex flex-shrink-0 items-center gap-1.5">
+                <span className={`h-2 w-2 rounded-full ${cfg.dot}`} />
+                <span className={`hidden text-[11px] font-medium sm:inline ${cfg.dotLabel}`}>{cfg.label}</span>
+            </span>
+        </button>
     );
 };
 

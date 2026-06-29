@@ -116,40 +116,37 @@ const QNfs = () => {
     };
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-8">
-                            <div>
-                                <p className="text-lg text-gray-500 font-medium tracking-tight">Unix-compatible network share administration</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Button
-                                    onClick={loadData}
-                                    bgColor="bg-white"
-                                    textColor="text-gray-400"
-                                    className="border border-gray-100 hover:text-blue-500 rounded-xl"
-                                    icon={<i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`}></i>}
-                                />
-                            </div>
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">NFS Volume Management</h1>
+                        <p className="mt-1 text-sm text-gray-500">Unix-compatible network share administration</p>
+                    </div>
+                    <button
+                        onClick={loadData}
+                        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-gray-50 hover:text-brand-600"
+                    >
+                        <i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`} />
+                    </button>
+                </div>
 
-                        {error && (
-                            <div className="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-center gap-3 text-rose-600 text-sm font-bold">
-                                <i className="fas fa-exclamation-circle"></i>
-                                {error}
-                            </div>
-                        )}
+                {error && (
+                    <div className="mt-4 flex items-center gap-3 rounded-md border border-danger-100 bg-danger-50 px-4 py-3 text-sm text-danger-600">
+                        <i className="fas fa-exclamation-triangle" />
+                        {error}
+                    </div>
+                )}
 
-                        {/* First Row: Form + Insights */}
+                <div className="mt-6 space-y-6">
+                {/* First Row: Form + Insights */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                             {/* Creation Form */}
-                            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                                <div className="flex items-center gap-3 mb-8">
-                                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center">
-                                        <i className="fas fa-plus text-xs"></i>
-                                    </div>
+                            <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm p-6">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
+                                        <i className="fas fa-plus text-xs" />
+                                    </span>
                                     <h3 className="text-lg font-bold text-gray-800 tracking-tight">New Volume</h3>
                                 </div>
 
@@ -235,7 +232,7 @@ const QNfs = () => {
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block">Active</label>
                                                 <input
                                                     type="checkbox"
-                                                    className="w-6 h-6 rounded-lg border-gray-200 text-indigo-600 focus:ring-indigo-500 transition-all cursor-pointer"
+                                                    className="w-5 h-5 rounded border-gray-200 text-brand-600 focus:ring-brand-500 transition-all cursor-pointer"
                                                     checked={formData.active}
                                                     onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
                                                 />
@@ -257,8 +254,7 @@ const QNfs = () => {
                                     <div className="flex justify-end">
                                         <Button
                                             type="submit"
-                                            bgColor="bg-indigo-600"
-                                            className="px-6 py-3 font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5"
+                                        variant="primary"
                                             onClick={handleCreate}
                                         >
                                             Provision Volume
@@ -280,7 +276,6 @@ const QNfs = () => {
                                 onDelete={handleDelete}
                             />
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

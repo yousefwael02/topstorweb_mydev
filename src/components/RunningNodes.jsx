@@ -567,32 +567,27 @@ const RunningNodes = ({ hosts, allHosts, selectedHostName, onSelect, onRefresh }
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 relative">
-            <div className="absolute top-0 bottom-0 left-0 w-1 bg-emerald-500"></div>
-            {/* Header */}
+        <section className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm">
             <div
-                className="px-6 py-4 border-b border-gray-100 flex justify-between items-center cursor-pointer hover:bg-gray-50/50 transition-colors"
+                className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 cursor-pointer hover:bg-gray-50/50 transition-colors"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
                 <div className="flex items-center gap-3">
-                    <button className={`text-gray-400 hover:text-emerald-600 transition-all duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
-                        <ChevronDown size={20} />
-                    </button>
-                    <h3 className="text-lg font-semibold text-gray-800">Running Nodes</h3>
+                    <ChevronDown className={`h-[18px] w-[18px] text-gray-400 transition-transform ${isExpanded ? '' : '-rotate-90'}`} />
+                    <h3 className="text-base font-semibold text-gray-800">Running Nodes</h3>
                 </div>
                 <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); getAllHostConfigs(); }}
-                    className="hidden sm:block bg-white border border-gray-200 text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200 font-medium text-sm px-4 py-2 rounded-lg shadow-sm transition-all"
+                    className="hidden sm:flex items-center gap-2 rounded-md border border-border bg-surface px-3.5 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-brand-600"
                 >
                     Download all configs
                 </button>
             </div>
 
             {isExpanded && (
-                <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                    {/* Nodes Grid */}
-                    <div className="p-6 bg-gray-50/50 border-b border-gray-100">
+                <div>
+                    <div className="p-5 border-b border-border bg-surface-muted">
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="hostsready">
                             {hosts.map(host => {
                                 const hostName = host.name || host.alias;
@@ -621,7 +616,7 @@ const RunningNodes = ({ hosts, allHosts, selectedHostName, onSelect, onRefresh }
                                 <div className="flex items-center">
                                     <input
                                         type="checkbox"
-                                        className="w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500 border-gray-300 transition runningnodes"
+                                        className="w-5 h-5 text-brand-600 rounded focus:ring-brand-500 border-gray-300 transition runningnodes"
                                         id="customSwitch1"
                                         name="configured"
                                         checked={formData.configured}
@@ -885,7 +880,7 @@ const RunningNodes = ({ hosts, allHosts, selectedHostName, onSelect, onRefresh }
                                     type="submit"
                                     id="readysubmit"
                                     disabled={!selectedHost}
-                                    bgColor="bg-emerald-600"
+                                    variant="primary"
                                     onClick={handleSubmit}
                                 >
                                     Update Node
@@ -897,10 +892,10 @@ const RunningNodes = ({ hosts, allHosts, selectedHostName, onSelect, onRefresh }
                                     onClick={(e) => { e.stopPropagation(); getHostConfig(selectedHostName); }}
                                     disabled={!selectedHost}
                                     className={`
-                                        w-full sm:w-auto px-6 py-2.5 rounded-lg font-medium transition-all duration-200 border
+                                        w-full sm:w-auto rounded-md border px-5 py-2.5 text-sm font-medium transition-colors
                                         ${!selectedHost
-                                            ? 'border-gray-100 text-gray-300 cursor-not-allowed'
-                                            : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-emerald-600'
+                                            ? 'border-border text-gray-300 cursor-not-allowed'
+                                            : 'border-border bg-surface text-gray-600 hover:bg-gray-50 hover:text-brand-600'
                                         }
                                     `}
                                 >
@@ -911,7 +906,7 @@ const RunningNodes = ({ hosts, allHosts, selectedHostName, onSelect, onRefresh }
                     </div>
                 </div>
             )}
-        </div>
+        </section>
     );
 };
 

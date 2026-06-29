@@ -1,15 +1,137 @@
 @import "tailwindcss";
 
-:root {
-    --brand-blue: #495BE2;
-    --brand-blue-dark: #3746CC;
-    --sidebar-bg-start: rgba(248, 249, 252, 0.9);
-    --sidebar-bg-end: rgba(235, 240, 255, 0.85);
-    --sidebar-item-active-bg: #495BE2;
-    --sidebar-text: #4A4A68;
-    --sidebar-text-active: #FFFFFF;
-    --submenu-bg: rgba(175, 175, 213, 0.09);
+@theme {
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Brand — single accent anchored on #495BE2 */
+  --color-brand-50: #EEF1FD;
+  --color-brand-100: #DCE1FB;
+  --color-brand-200: #BAC4F6;
+  --color-brand-300: #97A6F1;
+  --color-brand-400: #6E83EC;
+  --color-brand-500: #495BE2;
+  --color-brand-600: #3746CC;
+  --color-brand-700: #2D39A6;
+  --color-brand-800: #252F85;
+  --color-brand-900: #1F286B;
+  --color-brand: #495BE2;
+
+  /* Neutral gray ramp — overrides Tailwind gray */
+  --color-gray-50: #F7F9FB;
+  --color-gray-100: #EFF2F6;
+  --color-gray-200: #E2E7EE;
+  --color-gray-300: #CBD3DE;
+  --color-gray-400: #97A2B2;
+  --color-gray-500: #69748A;
+  --color-gray-600: #4B5567;
+  --color-gray-700: #38414F;
+  --color-gray-800: #232A35;
+  --color-gray-900: #151A22;
+
+  /* Surfaces & borders */
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #F7F9FB;
+  --color-surface-sunken: #EFF2F6;
+  --color-canvas: #F1F4F8;
+  --color-border: #E2E7EE;
+  --color-border-strong: #CBD3DE;
+
+  /* Semantic status */
+  --color-success-50: #ECF8F2;
+  --color-success-100: #D3EFE1;
+  --color-success-500: #1F9D6B;
+  --color-success-600: #198257;
+  --color-success-700: #146646;
+
+  --color-warning-50: #FDF6EC;
+  --color-warning-100: #FAE9CC;
+  --color-warning-500: #C77A12;
+  --color-warning-600: #A6640D;
+  --color-warning-700: #84500B;
+
+  --color-danger-50: #FCEDED;
+  --color-danger-100: #F8D6D6;
+  --color-danger-500: #D64545;
+  --color-danger-600: #B83838;
+  --color-danger-700: #962E2E;
+
+  --color-info-50: #EEF1FD;
+  --color-info-100: #DCE1FB;
+  --color-info-500: #495BE2;
+  --color-info-600: #3746CC;
+  --color-info-700: #2D39A6;
+
+  /* Radius — 3 meaningful steps */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 16px;
+
+  /* Elevation — two soft shadows */
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-md: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-lg: 0 8px 24px rgba(16, 24, 40, 0.08);
+  --shadow-xl: 0 12px 32px rgba(16, 24, 40, 0.10);
+  --shadow-2xl: 0 16px 48px rgba(16, 24, 40, 0.12);
 }
+
+/* ── App shell ────────────────────────────────────────────────────────────── */
+body {
+  background-color: var(--color-canvas);
+  font-family: var(--font-sans);
+  color: var(--color-gray-800);
+}
+
+/* ── Sidebar rail ─────────────────────────────────────────────────────────── */
+.app-sidebar {
+  transition: transform 0.25s ease;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(21, 26, 34, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Desktop: persistent rail; collapse slides it off-canvas */
+@media (min-width: 1024px) {
+  .sidebar-backdrop {
+    display: none;
+  }
+  .main-content {
+    transition: margin-left 0.25s ease;
+  }
+  body.sidebar-collapse .app-sidebar {
+    transform: translateX(-100%);
+  }
+  body.sidebar-collapse .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Mobile: off-canvas drawer; sidebar-mobile-open slides it in */
+@media (max-width: 1023.98px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+  body.sidebar-mobile-open .app-sidebar {
+    transform: translateX(0);
+  }
+  body.sidebar-mobile-open .sidebar-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 
 .main-sidebar.sidebar-glass {
     background: linear-gradient(180deg, var(--sidebar-bg-start) 0%, var(--sidebar-bg-end) 100%) !important;

@@ -155,41 +155,36 @@ const QDisks = () => {
     };
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-10">
-                            <div>
-                                <h1 className="text-3xl font-black text-gray-800 tracking-tight">Disk Infrastructure</h1>
-                                <p className="text-gray-500 mt-1 font-medium">Provision storage pools and manage physical disks</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Button
-                                    onClick={loadData}
-                                    bgColor="bg-white"
-                                    textColor="text-gray-400"
-                                    className="border border-gray-100 hover:text-indigo-500 rounded-xl shadow-sm transition-all"
-                                    icon={<i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`}></i>}
-                                />
-                            </div>
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Disk Infrastructure</h1>
+                        <p className="mt-1 text-sm text-gray-500">Provision storage pools and manage physical disks</p>
+                    </div>
+                    <button
+                        onClick={loadData}
+                        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-gray-50 hover:text-brand-600"
+                    >
+                        <i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`} />
+                    </button>
+                </div>
 
-                        {error && (
-                            <div className="mb-8 p-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-center gap-3 text-rose-600 text-sm font-bold animate-in fade-in slide-in-from-top-4">
-                                <i className="fas fa-exclamation-circle"></i>
-                                {error}
-                            </div>
-                        )}
+                {error && (
+                    <div className="mt-4 flex items-center gap-3 rounded-md border border-danger-100 bg-danger-50 px-4 py-3 text-sm text-danger-600">
+                        <i className="fas fa-exclamation-triangle" />
+                        {error}
+                    </div>
+                )}
 
-                        <div className="grid grid-cols-1 gap-8">
-                            {/* Create New Pool Card */}
-                            <div className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-gray-100">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center">
-                                        <i className="fas fa-plus text-xs"></i>
-                                    </div>
-                                    <h3 className="text-xl font-black text-gray-800 tracking-tight">Create New Pool</h3>
+                <div className="mt-6 space-y-6">
+                <div className="grid grid-cols-1 gap-6">
+                            <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm p-6">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
+                                        <i className="fas fa-plus text-xs" />
+                                    </span>
+                                    <h3 className="text-base font-semibold text-gray-800">Create New Pool</h3>
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -217,15 +212,15 @@ const QDisks = () => {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="mt-8 flex justify-between items-center bg-white/50 px-6 py-4 rounded-2xl border border-white">
-                                                <div className="flex gap-6">
+                                    <div className="mt-5 flex justify-between items-center rounded-md border border-border bg-surface-muted px-5 py-3">
+                                                <div className="flex gap-5">
                                                     <div>
-                                                        <p className="text-[10px] font-black text-gray-400 uppercase mb-1">Data</p>
-                                                        <p className="text-sm font-black text-gray-700">{selectedDisks.length - cacheDisks.length}</p>
+                                                        <p className="text-xs font-semibold text-gray-500 uppercase mb-0.5">Data</p>
+                                                        <p className="text-sm font-semibold text-gray-700">{selectedDisks.length - cacheDisks.length}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-[10px] font-black text-gray-400 uppercase mb-1">Cache</p>
-                                                        <p className="text-sm font-black text-amber-500">{cacheDisks.length}</p>
+                                                        <p className="text-xs font-semibold text-gray-500 uppercase mb-0.5">Cache</p>
+                                                        <p className="text-sm font-semibold text-warning-500">{cacheDisks.length}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col items-end gap-2">
@@ -235,16 +230,15 @@ const QDisks = () => {
                                                             id="includeCache" 
                                                             checked={includeCache} 
                                                             onChange={(e) => setIncludeCache(e.target.checked)}
-                                                            className="w-3 h-3 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                                                            className="w-3.5 h-3.5 text-brand-600 rounded border-gray-300 focus:ring-brand-500"
                                                         />
-                                                        <label htmlFor="includeCache" className="text-[9px] font-black uppercase text-gray-500 tracking-tighter cursor-pointer">Include Cache</label>
+                                                        <label htmlFor="includeCache" className="text-xs font-medium text-gray-500 cursor-pointer">Include Cache</label>
                                                     </div>
                                                     <Button
                                                         onClick={handleSaveCache}
                                                         disabled={cacheDisks.length === 0 || selectedDisks.length !== cacheDisks.length}
-                                                        bgColor="bg-transparent hover:bg-amber-50"
-                                                        textColor="text-amber-500"
-                                                        className="text-[10px] font-black uppercase tracking-widest px-4 py-2"
+                                                        variant="ghost"
+                                                        size="sm"
                                                     >
                                                         Save as Spare
                                                     </Button>
@@ -257,8 +251,8 @@ const QDisks = () => {
                                     </div>
 
                                     <div>
-                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-4 block">Redundancy Configuration</label>
-                                        <div className="overflow-hidden border border-gray-100 rounded-3xl h-[320px] bg-white flex flex-col">
+                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide ml-1 mb-3 block">Redundancy Configuration</label>
+                                        <div className="overflow-hidden border border-border rounded-lg h-[320px] bg-surface flex flex-col">
                                             <div className="overflow-y-auto flex-1 custom-scrollbar">
                                                 <table className="w-full text-left border-collapse">
                                                     <thead className="bg-gray-50/80 sticky top-0 z-10 backdrop-blur-sm">
@@ -283,7 +277,7 @@ const QDisks = () => {
                                                                      <tr
                                                                          key={type}
                                                                          onClick={() => handleRedundancySelect(type, filteredOptions[0][0])}
-                                                                         className={`transition-colors cursor-pointer group ${creatingRedundancy === type ? 'bg-indigo-50/50' : 'hover:bg-indigo-50/30'}`}
+                                                                         className={`transition-colors cursor-pointer ${creatingRedundancy === type ? 'bg-brand-50/50' : 'hover:bg-gray-50'}`}
                                                                      >
                                                                          <td className="px-6 py-4">
                                                                              <input
@@ -291,7 +285,7 @@ const QDisks = () => {
                                                                                  name="newraid"
                                                                                  checked={creatingRedundancy === type}
                                                                                  readOnly
-                                                                                 className="w-4 h-4 text-indigo-600 focus:ring-0 border-gray-300 transition-all cursor-pointer pointer-events-none"
+                                                                                 className="w-4 h-4 text-brand-600 focus:ring-0 border-gray-300 transition-all cursor-pointer pointer-events-none"
                                                                              />
                                                                          </td>
                                                                          <td className="px-6 py-4">
@@ -317,14 +311,14 @@ const QDisks = () => {
                                                                                      value={creatingSize}
                                                                                      onChange={(e) => setCreatingSize(e.target.value)}
                                                                                      onClick={(e) => e.stopPropagation()}
-                                                                                     className="text-[10px] font-black px-3 py-1 rounded-lg bg-white border-none text-indigo-600 focus:ring-1 focus:ring-indigo-200 outline-none"
+                                                                                     className="rounded-md border border-border bg-surface px-2.5 py-1 text-sm text-brand-600 focus:ring-2 focus:ring-brand-100 outline-none"
                                                                                  >
                                                                                      {filteredOptions.map(([size]) => (
                                                                                          <option key={size} value={size}>{parseFloat(size).toFixed(2)} GB</option>
                                                                                      ))}
                                                                                  </select>
                                                                              ) : (
-                                                                                 <span className={`text-[10px] font-black px-3 py-1 rounded-lg transition-colors ${creatingRedundancy === type ? 'bg-white text-indigo-600' : 'bg-indigo-50 text-indigo-600'}`}>
+                                                                                 <span className={`text-sm px-2.5 py-1 rounded-md transition-colors ${creatingRedundancy === type ? 'bg-surface text-brand-600' : 'bg-gray-100 text-gray-500'}`}>
                                                                                      {parseFloat(filteredOptions[0][0]).toFixed(2)} GB
                                                                                  </span>
                                                                              )}
@@ -340,8 +334,7 @@ const QDisks = () => {
                                                 <Button
                                                     onClick={handleCreatePool}
                                                     disabled={!creatingRedundancy || (selectedDisks.length - cacheDisks.length === 0)}
-                                                    bgColor="bg-indigo-600"
-                                                    className="px-8 py-2.5 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5"
+                                                    variant="primary"
                                                 >
                                                     Create Pool
                                                 </Button>
@@ -368,12 +361,12 @@ const QDisks = () => {
 
                             {/* Spare Cache Disks — mirrors legacy #cachepools section */}
                             {dgsData.raids.cache_pree?.disks?.length > 0 && (
-                                <div className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-gray-100">
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center">
-                                            <i className="fas fa-memory text-xs"></i>
-                                        </div>
-                                        <h3 className="text-xl font-black text-gray-800 tracking-tight">Spare Cache Disks</h3>
+                                <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm p-6">
+                                    <div className="flex items-center gap-3 mb-5">
+                                        <span className="flex h-9 w-9 items-center justify-center rounded-md bg-warning-50 text-warning-600">
+                                            <i className="fas fa-memory text-xs" />
+                                        </span>
+                                        <h3 className="text-base font-semibold text-gray-800">Spare Cache Disks</h3>
                                     </div>
                                     <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-4 mb-8">
                                         {dgsData.raids.cache_pree.disks.map(diskId => (
@@ -389,15 +382,13 @@ const QDisks = () => {
                                     <Button
                                         onClick={handleRemoveCacheSpares}
                                         disabled={selectedCacheSpares.length === 0}
-                                        bgColor="bg-rose-500"
-                                        className="px-8 py-2.5 font-black text-[10px] uppercase tracking-widest shadow-lg shadow-rose-100 transition-all hover:-translate-y-0.5"
+                                        variant="danger"
                                     >
                                         Remove Selected Cache Spares
                                     </Button>
                                 </div>
                             )}
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

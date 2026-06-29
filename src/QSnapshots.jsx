@@ -144,34 +144,31 @@ const QSnapshots = () => {
     const tabs = ['Once', 'Minutely', 'Hourly', 'Weekly'];
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-8">
-                            <div>
-                                <p className="text-lg text-gray-500 font-medium tracking-tight">Point-in-time volume recovery and scheduling</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Button
-                                    onClick={loadData}
-                                    bgColor="bg-white"
-                                    textColor="text-gray-400"
-                                    className="border border-gray-100 hover:text-indigo-500 rounded-xl"
-                                    icon={<i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`}></i>}
-                                />
-                            </div>
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Snapshots Management</h1>
+                        <p className="mt-1 text-sm text-gray-500">Point-in-time volume recovery and scheduling</p>
+                    </div>
+                    <button
+                        onClick={loadData}
+                        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-gray-50 hover:text-brand-600"
+                    >
+                        <i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`} />
+                    </button>
+                </div>
 
-                        {error && (
-                            <div className="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-center gap-3 text-rose-600 text-sm font-bold">
-                                <i className="fas fa-exclamation-circle"></i>
-                                {error}
-                            </div>
-                        )}
+                {error && (
+                    <div className="mt-4 flex items-center gap-3 rounded-md border border-danger-100 bg-danger-50 px-4 py-3 text-sm text-danger-600">
+                        <i className="fas fa-exclamation-triangle" />
+                        {error}
+                    </div>
+                )}
 
-                        {/* Top Selection Bar */}
-                        <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 mb-8 flex flex-wrap items-center gap-6">
+                <div className="mt-6 space-y-6">
+                {/* Top Selection Bar */}
+                        <div className="bg-surface rounded-lg p-6 shadow-sm border border-border mb-6 flex flex-wrap items-center gap-6">
                             <div className="flex-1 min-w-[200px]">
                                 <Dropdown
                                     label="Source Pool"
@@ -194,15 +191,15 @@ const QSnapshots = () => {
                         </div>
 
                         {/* Main Creation Card */}
-                        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
+                        <div className="bg-surface rounded-lg shadow-sm border border-border mb-6 overflow-hidden">
                             {/* Tab Headers */}
                             <div className="flex border-b border-gray-50 bg-gray-50/30">
                                 {tabs.map(tab => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`flex-1 py-4 text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab
-                                            ? 'bg-white text-indigo-600 border-b-2 border-indigo-600'
+                                        className={`flex-1 py-4 text-xs font-semibold uppercase tracking-wide transition-all ${activeTab === tab
+                                            ? 'bg-surface text-brand-600 border-b-2 border-brand-600'
                                             : 'text-gray-400 hover:text-gray-600'
                                             }`}
                                     >
@@ -229,8 +226,8 @@ const QSnapshots = () => {
                                             <Button
                                                 type="submit"
                                                 disabled={!selection.volume || forms.Once.name.length < 3}
-                                                bgColor="bg-indigo-600"
-                                                className="px-8 py-3 font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5 !rounded-2xl"
+                                                bgColor="bg-brand-600"
+                                                className="px-6 py-2.5 font-semibold text-xs uppercase tracking-wide shadow-sm transition-all rounded-md"
                                                 onClick={handleCreate}
                                             >
                                                 Snap Now
@@ -263,8 +260,8 @@ const QSnapshots = () => {
                                             <Button
                                                 type="submit"
                                                 disabled={!selection.volume}
-                                                bgColor="bg-indigo-600"
-                                                className="px-6 py-2.5 font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5 !rounded-2xl"
+                                                bgColor="bg-brand-600"
+                                                className="px-6 py-2.5 font-semibold text-xs uppercase tracking-wide shadow-sm transition-all rounded-md"
                                                 onClick={handleCreate}
                                             >
                                                 Create Schedule
@@ -307,8 +304,8 @@ const QSnapshots = () => {
                                             <Button
                                                 type="submit"
                                                 disabled={!selection.volume}
-                                                bgColor="bg-indigo-600"
-                                                className="px-6 py-2.5 font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5 !rounded-2xl"
+                                                bgColor="bg-brand-600"
+                                                className="px-6 py-2.5 font-semibold text-xs uppercase tracking-wide shadow-sm transition-all rounded-md"
                                                 onClick={handleCreate}
                                             >
                                                 Create Schedule
@@ -348,8 +345,8 @@ const QSnapshots = () => {
                                             <Button
                                                 type="submit"
                                                 disabled={!selection.volume}
-                                                bgColor="bg-indigo-600"
-                                                className="px-6 py-2.5 font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5 !rounded-2xl"
+                                                bgColor="bg-brand-600"
+                                                className="px-6 py-2.5 font-semibold text-xs uppercase tracking-wide shadow-sm transition-all rounded-md"
                                                 onClick={handleCreate}
                                             >
                                                 Create Schedule
@@ -397,7 +394,6 @@ const QSnapshots = () => {
                             />
                         </div>
 
-                    </div>
                 </div>
             </div>
         </div>

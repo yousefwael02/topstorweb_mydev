@@ -93,52 +93,43 @@ const QNodes = () => {
 
 
     return (
-        <div className="content-wrapper p-4 bg-gray-100 min-h-screen">
-            <div className="floating-canvas">
-                <div className="content-header">
-                    <div className="container-fluid">
-                        <h2 className="text-2xl font-bold mb-4">Node Status</h2>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Node Status</h1>
+                        <p className="mt-1 text-sm text-gray-500">Monitor cluster nodes, configure networking, and manage membership</p>
                     </div>
                 </div>
-                <div className="content">
-                    <div className="container-fluid">
-                        {/* Running Nodes Card */}
-                        <div className="mb-8">
-                            <RunningNodes
-                                hosts={hostsInfo.ready || []}
-                                allHosts={hostsInfo.all || {}}
-                                selectedHostName={selectedHost.ready}
-                                onSelect={(name) => handleHostSelect('ready', name)}
-                                onRefresh={refreshData}
-                            />
-                        </div>
 
-                        {/* Active Nodes / Evacuate Card */}
-                        <div className="mb-8">
-                            <ActiveNodes
-                                hosts={hostsInfo.active || []}
-                                allHosts={hostsInfo.all || {}}
-                                lostHosts={hostsInfo.lost || []}
-                                selectedHostName={selectedHost.active}
-                                onSelect={(name) => handleHostSelect('active', name)}
-                                readyHostsCount={(hostsInfo.ready || []).length}
-                                possibleHostsCount={(hostsInfo.possible || []).length}
-                                onRefresh={refreshData}
-                            />
-                        </div>
+                <div className="mt-6 space-y-6">
+                    <RunningNodes
+                        hosts={hostsInfo.ready || []}
+                        allHosts={hostsInfo.all || {}}
+                        selectedHostName={selectedHost.ready}
+                        onSelect={(name) => handleHostSelect('ready', name)}
+                        onRefresh={refreshData}
+                    />
 
-                        {/* Discovered Nodes Card */}
-                        <div className="mb-8">
-                            <DiscoveredNodes
-                                hosts={hostsInfo.possible || []}
-                                allHosts={hostsInfo.all || {}}
-                                selectedHostName={selectedHost.possible}
-                                onSelect={(name) => handleHostSelect('possible', name)}
-                                onDiscover={handleDiscover}
-                                onRefresh={refreshData}
-                            />
-                        </div>
-                    </div>
+                    <ActiveNodes
+                        hosts={hostsInfo.active || []}
+                        allHosts={hostsInfo.all || {}}
+                        lostHosts={hostsInfo.lost || []}
+                        selectedHostName={selectedHost.active}
+                        onSelect={(name) => handleHostSelect('active', name)}
+                        readyHostsCount={(hostsInfo.ready || []).length}
+                        possibleHostsCount={(hostsInfo.possible || []).length}
+                        onRefresh={refreshData}
+                    />
+
+                    <DiscoveredNodes
+                        hosts={hostsInfo.possible || []}
+                        allHosts={hostsInfo.all || {}}
+                        selectedHostName={selectedHost.possible}
+                        onSelect={(name) => handleHostSelect('possible', name)}
+                        onDiscover={handleDiscover}
+                        onRefresh={refreshData}
+                    />
                 </div>
             </div>
         </div>

@@ -1,45 +1,38 @@
 import React from 'react';
 
 const MetricCard = ({ title, value, unit, icon, color, trend, trendValue }) => {
-    const colorClasses = {
-        blue: 'bg-blue-50 text-blue-600 border-blue-100',
-        emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100',
-        amber: 'bg-amber-50 text-amber-600 border-amber-100',
-        indigo: 'bg-indigo-50 text-indigo-600 border-indigo-100',
-        rose: 'bg-rose-50 text-rose-600 border-rose-100',
+    const iconColorClasses = {
+        blue: 'bg-brand-50 text-brand-600',
+        emerald: 'bg-success-50 text-success-600',
+        amber: 'bg-warning-50 text-warning-600',
+        indigo: 'bg-brand-50 text-brand-600',
+        rose: 'bg-danger-50 text-danger-600',
     };
 
-    const accentColor = colorClasses[color] || colorClasses.blue;
+    const accentColor = iconColorClasses[color] || iconColorClasses.blue;
 
     return (
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:shadow-gray-100/50 transition-all duration-300 group relative overflow-hidden">
-            {/* Background Glow */}
-            <div className={`absolute -right-4 -top-4 w-24 h-24 rounded-full opacity-5 blur-2xl ${accentColor.split(' ')[0]}`}></div>
-
+        <div className="rounded-lg border border-border bg-surface p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
             <div className="flex justify-between items-start mb-4">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${accentColor} shadow-sm group-hover:scale-110 transition-transform duration-300`}>
-                    <i className={`fas ${icon} text-lg`}></i>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-md border border-border ${accentColor}`}>
+                    <i className={`fas ${icon} text-base`} />
                 </div>
                 {trend && (
-                    <div className={`px-2.5 py-1 rounded-lg text-[10px] font-black tracking-wider uppercase flex items-center gap-1 ${trend === 'up' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
-                        }`}>
-                        <i className={`fas fa-chevron-${trend}`}></i>
+                    <div className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium ${
+                        trend === 'up' ? 'bg-success-50 text-success-600' : 'bg-danger-50 text-danger-600'
+                    }`}>
+                        <i className={`fas fa-chevron-${trend} text-[10px]`} />
                         {trendValue}
                     </div>
                 )}
             </div>
 
-            <div className="space-y-1">
-                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">{title}</h3>
+            <div className="space-y-0.5">
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">{title}</h3>
                 <div className="flex items-baseline gap-1.5">
-                    <span className="text-3xl font-black text-gray-800 tracking-tight">{value}</span>
-                    <span className="text-sm font-bold text-gray-400 capitalize">{unit}</span>
+                    <span className="text-3xl font-bold text-gray-900 tracking-tight">{value}</span>
+                    <span className="text-sm font-medium text-gray-400">{unit}</span>
                 </div>
-            </div>
-
-            {/* Bottom Progress Bar (Visual Polish) */}
-            <div className="mt-6 h-1 w-full bg-gray-50 rounded-full overflow-hidden">
-                <div className={`h-full opacity-60 rounded-full w-2/3 ${accentColor.split(' ')[0]}`}></div>
             </div>
         </div>
     );

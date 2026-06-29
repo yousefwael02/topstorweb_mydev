@@ -223,47 +223,42 @@ const QSender = () => {
     if (loading && snapshotsInfo.allsnaps.length === 0) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-600"></div>
             </div>
         );
     }
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-10">
-                            <div>
-                                <h1 className="text-2xl font-black text-gray-800 tracking-tight">Replication Schedule</h1>
-                                <p className="text-xs text-gray-400 mt-0.5 font-medium uppercase tracking-wider">Configure automated snapshot replication and data security</p>
-                            </div>
-                            <Button
-                                onClick={() => loadSnapshots()}
-                                bgColor="bg-white"
-                                textColor="text-gray-400"
-                                className="border border-gray-100 hover:text-indigo-500 rounded-xl shadow-sm transition-all"
-                                icon={<RefreshCw size={16} className={loading ? 'animate-spin' : ''} />}
-                            />
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Replication Schedule</h1>
+                        <p className="mt-1 text-sm text-gray-500">Configure automated snapshot replication and data security</p>
+                    </div>
+                    <button
+                        onClick={() => loadSnapshots()}
+                        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-gray-50 hover:text-brand-600"
+                    >
+                        <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                    </button>
+                </div>
 
-                        {message.text && (
-                            <div className={`mb-8 p-4 rounded-2xl flex items-center gap-3 text-sm font-bold animate-in fade-in slide-in-from-top-4 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-rose-50 text-rose-600 border border-rose-100'}`}>
-                                <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
-                                {message.text}
-                            </div>
-                        )}
+                {message.text && (
+                    <div className={`mt-4 flex items-center gap-3 rounded-md border px-4 py-3 text-sm ${message.type === 'success' ? 'border-success-100 bg-success-50 text-success-600' : 'border-danger-100 bg-danger-50 text-danger-600'}`}>
+                        <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}`} />
+                        {message.text}
+                    </div>
+                )}
 
-                        <div className="flex flex-col gap-8">
-                            {/* Schedule Configuration Card */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 relative group">
-                                <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
-
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center shadow-sm">
-                                        <Clock size={20} />
-                                    </div>
-                                    <h3 className="text-lg font-bold text-gray-800 tracking-tight">Provision New Sender</h3>
+                <div className="mt-6 space-y-6">
+                <div className="flex flex-col gap-6">
+                            <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm p-6">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
+                                        <Clock size={18} />
+                                    </span>
+                                    <h3 className="text-base font-semibold text-gray-800">Provision New Sender</h3>
                                 </div>
 
                                 <form onSubmit={handleCreate} className="space-y-4">
@@ -298,8 +293,8 @@ const QSender = () => {
                                     </div>
 
                                     {/* Tabbed Interface */}
-                                    <div className="mt-8 border border-gray-100 rounded-2xl overflow-hidden bg-gray-50/30">
-                                        <div className="flex border-b border-gray-100 bg-white">
+                                    <div className="mt-5 overflow-hidden rounded-lg border border-border bg-surface-muted">
+                                        <div className="flex border-b border-border bg-surface">
                                             {[
                                                 { id: 'Once', icon: <Zap size={14} />, label: 'Once' },
                                                 { id: 'Minutely', icon: <Clock size={14} />, label: 'Minutely' },
@@ -311,7 +306,7 @@ const QSender = () => {
                                                     type="button"
                                                     onClick={() => setActiveTab(tab.id)}
                                                     className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${activeTab === tab.id
-                                                            ? 'bg-white text-indigo-600 border-b-2 border-indigo-600'
+                                                            ? 'bg-surface text-brand-600 border-b-2 border-brand-600'
                                                             : 'text-gray-400 hover:text-gray-600 hover:bg-white/50'
                                                         }`}
                                                 >
@@ -417,8 +412,7 @@ const QSender = () => {
                                     <div className="pt-6 border-t border-gray-50 overflow-visible">
                                         <Button
                                             type="submit"
-                                            className="w-full py-3 text-[10px] font-black uppercase tracking-[0.2em] shadow-md shadow-indigo-100 transition-all hover:-translate-y-0.5"
-                                            bgColor="bg-indigo-600"
+                                            variant="primary"
                                             disabled={!selectedPool || !selectedVolume || !selectedReceiver || actionLoading === 'create'}
                                             icon={<PlusCircle size={16} />}
                                         >
@@ -428,18 +422,16 @@ const QSender = () => {
                                 </form>
                             </div>
 
-                            {/* Active Schedules List */}
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-100 relative group overflow-visible">
-                                <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
+                            <section className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm">
 
-                                <div className="px-8 py-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/30 rounded-t-xl">
+                                <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 bg-surface">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center">
+                                        <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
                                             <Calendar size={18} />
-                                        </div>
-                                        <h3 className="text-lg font-bold text-gray-800 tracking-tight">Active Schedules</h3>
+                                        </span>
+                                        <h3 className="text-base font-semibold text-gray-800">Active Schedules</h3>
                                     </div>
-                                    <span className="px-3 py-1 bg-white border border-gray-100 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-widest shadow-sm">
+                                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-3 py-1 text-xs font-medium text-gray-600">
                                         {[...snapshotsInfo.Minutelyperiod, ...snapshotsInfo.Hourlyperiod, ...snapshotsInfo.Weeklyperiod].filter(p => p.receiver !== 'NoReceiver').length} Active
                                     </span>
                                 </div>
@@ -447,31 +439,31 @@ const QSender = () => {
                                 <div className="p-0 overflow-x-auto">
                                     <table className="w-full text-left border-collapse">
                                         <thead>
-                                            <tr className="bg-gray-50/50">
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">ID / Frequency</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Volume</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Receiver</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Details</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-right">Actions</th>
+                                            <tr className="border-b border-border bg-surface-muted">
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">ID / Frequency</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Volume</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Receiver</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Details</th>
+                                                <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-500">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-gray-50">
+                                        <tbody className="divide-y divide-border">
                                             {['Minutelyperiod', 'Hourlyperiod', 'Weeklyperiod'].flatMap(type =>
                                                 snapshotsInfo[type].filter(p => p.receiver !== 'NoReceiver').map((period, idx) => (
-                                                    <tr key={period.id} className="hover:bg-gray-50/50 transition-colors group">
-                                                        <td className="px-8 py-4">
+                                                    <tr key={period.id} className="hover:bg-gray-50/60 transition-colors">
+                                                        <td className="px-5 py-4">
                                                             <div className="flex flex-col">
-                                                                <span className="text-xs font-bold text-gray-700">{period.id}</span>
-                                                                <span className="text-[10px] text-indigo-400 font-black uppercase tracking-tighter">
+                                                                <span className="text-xs font-medium text-gray-700">{period.id}</span>
+                                                                <span className="text-[10px] text-brand-500 font-semibold uppercase tracking-tight">
                                                                     {period.id.startsWith('M') ? 'Minutely' : period.id.startsWith('H') ? 'Hourly' : 'Weekly'}
                                                                 </span>
                                                             </div>
                                                         </td>
-                                                        <td className="px-8 py-4">
-                                                            <span className="text-xs font-semibold text-gray-600">{period.volume.split('_')[0]}</span>
+                                                        <td className="px-5 py-4">
+                                                            <span className="text-xs font-medium text-gray-600">{period.volume.split('_')[0]}</span>
                                                         </td>
-                                                        <td className="px-8 py-4">
-                                                            <span className="inline-flex items-center px-2 py-1 rounded-md bg-indigo-50 text-indigo-600 text-[10px] font-black">
+                                                        <td className="px-5 py-4">
+                                                            <span className="inline-flex items-center px-2 py-1 rounded-md bg-brand-50 text-brand-600 text-xs font-medium">
                                                                 {period.receiver}
                                                             </span>
                                                         </td>
@@ -487,10 +479,10 @@ const QSender = () => {
                                                             <button
                                                                 onClick={() => handleDelete(period.id, 'schedule')}
                                                                 disabled={actionLoading === `delete-${period.id}`}
-                                                                className="w-9 h-9 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm hover:shadow-rose-100"
+                                                                className="w-9 h-9 rounded-md bg-danger-50 text-danger-500 flex items-center justify-center hover:bg-danger-500 hover:text-white transition-all shadow-xs"
                                                             >
                                                                 {actionLoading === `delete-${period.id}` ? (
-                                                                    <div className="w-4 h-4 border-2 border-rose-200 border-t-rose-500 rounded-full animate-spin"></div>
+                                                                    <div className="w-4 h-4 border-2 border-danger-200 border-t-danger-500 rounded-full animate-spin"></div>
                                                                 ) : <Trash2 size={14} />}
                                                             </button>
                                                         </td>
@@ -510,20 +502,18 @@ const QSender = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </section>
 
                             {/* Recent Replacements List */}
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-100 relative group overflow-visible mb-12">
-                                <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-emerald-500 rounded-l-xl shadow-[2px_0_10px_rgba(16,185,129,0.2)]"></div>
-
-                                <div className="px-8 py-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/30 rounded-t-xl">
+                            <div className="bg-surface rounded-lg shadow-sm border border-border relative group overflow-visible mb-6">
+                                <div className="px-5 py-4 border-b border-border flex justify-between items-center bg-surface-muted rounded-t-lg">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center">
+                                        <div className="w-9 h-9 rounded-md bg-success-50 text-success-600 flex items-center justify-center">
                                             <Zap size={18} />
                                         </div>
-                                        <h3 className="text-lg font-bold text-gray-800 tracking-tight">Recent Snapshots</h3>
+                                        <h3 className="text-base font-semibold text-gray-800">Recent Snapshots</h3>
                                     </div>
-                                    <span className="px-3 py-1 bg-white border border-gray-100 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-widest shadow-sm">
+                                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-3 py-1 text-xs font-medium text-gray-600">
                                         Latest 10
                                     </span>
                                 </div>
@@ -531,15 +521,15 @@ const QSender = () => {
                                 <div className="p-0 overflow-x-auto">
                                     <table className="w-full text-left border-collapse">
                                         <thead>
-                                            <tr className="bg-gray-50/50">
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Timestamp</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Volume / Target</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Alias</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-center">Resource</th>
-                                                <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-right">Actions</th>
+                                            <tr className="bg-surface-muted">
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border">Timestamp</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border">Volume / Target</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border">Alias</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border text-center">Resource</th>
+                                                <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border text-right">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-gray-50">
+                                        <tbody className="divide-y divide-border">
                                             {snapshotsInfo.allsnaps.filter(s => s.partnerR && s.partnerR !== 'NoReceiver').slice(0, 10).map((snap, idx) => (
                                                 <tr key={idx} className="hover:bg-gray-50/50 transition-colors group">
                                                     <td className="px-8 py-4">
@@ -551,32 +541,32 @@ const QSender = () => {
                                                     <td className="px-8 py-4">
                                                         <div className="flex flex-col">
                                                             <span className="text-xs font-bold text-gray-600 truncate max-w-[150px]">{snap.volume.split('_')[0]}</span>
-                                                            <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-tighter">→ {snap.partnerR.split('_')[0]}</span>
+                                                            <span className="text-[10px] text-brand-500 font-semibold uppercase tracking-tight">→ {snap.partnerR.split('_')[0]}</span>
                                                         </div>
                                                     </td>
                                                     <td className="px-8 py-4">
-                                                        <span className="text-xs font-semibold text-indigo-600 truncate max-w-[150px] inline-block">
+                                                        <span className="text-xs font-semibold text-brand-600 truncate max-w-[150px] inline-block">
                                                             {snap.name.split('.')[0]}
                                                         </span>
                                                     </td>
                                                     <td className="px-8 py-4 text-center">
                                                         <div className="flex flex-col items-center">
                                                             <span className="text-[10px] font-black text-gray-500 uppercase">{snap.used} MB</span>
-                                                            <span className="text-[9px] text-emerald-500 font-black">{snap.refcompressratio}x Ratio</span>
+                                                            <span className="text-[9px] text-success-500 font-semibold">{snap.refcompressratio}x Ratio</span>
                                                         </div>
                                                     </td>
                                                     <td className="px-8 py-4 text-right">
                                                         <div className="flex items-center justify-end gap-2">
                                                             <button
                                                                 onClick={() => handleRollback(snap.name)}
-                                                                className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all shadow-sm hover:shadow-indigo-100"
+                                                                className="w-9 h-9 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center hover:bg-brand-600 hover:text-white transition-all shadow-xs"
                                                                 title="Rollback volume"
                                                             >
                                                                 <RotateCcw size={14} />
                                                             </button>
                                                             <button
                                                                 onClick={() => handleDelete(snap.name, 'snapshot')}
-                                                                className="w-9 h-9 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm hover:shadow-rose-100"
+                                                                className="w-9 h-9 rounded-md bg-danger-50 text-danger-500 flex items-center justify-center hover:bg-danger-500 hover:text-white transition-all shadow-xs"
                                                                 title="Delete snapshot"
                                                             >
                                                                 <Trash2 size={14} />
@@ -600,7 +590,6 @@ const QSender = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -30,32 +30,27 @@ const AddGroupForm = ({ users, onAdd }) => {
     const canSubmit = formData.Group.length > 2;
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 relative group hover:shadow-md">
-            {/* Theme Accent Line - Indigo for Groups */}
-            <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-2xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
-
+        <section className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm">
             <div
-                className="px-6 py-5 border-b border-gray-50 flex justify-between items-center cursor-pointer hover:bg-gray-50/50 transition-colors"
+                className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 cursor-pointer hover:bg-gray-50/50 transition-colors"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shadow-inner">
-                        <i className={`fas fa-users transition-transform duration-500 ${isExpanded ? 'scale-110' : ''}`}></i>
-                    </div>
+                <div className="flex items-center gap-3">
+                    <ChevronDown className={`h-[18px] w-[18px] text-gray-400 transition-transform ${isExpanded ? '' : '-rotate-90'}`} />
+                    <span className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-600">
+                        <Users className="h-[18px] w-[18px]" />
+                    </span>
                     <div>
-                        <h3 className="text-lg font-bold text-gray-800 tracking-tight">Create New Group</h3>
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mt-0.5">Permission Management</p>
+                        <h3 className="text-base font-semibold text-gray-800">Create New Group</h3>
+                        <p className="text-sm text-gray-500">Permission management</p>
                     </div>
-                </div>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isExpanded ? 'bg-indigo-600 text-white rotate-180 shadow-lg shadow-indigo-200' : 'bg-gray-100 text-gray-400'}`}>
-                    <ChevronDown size={18} />
                 </div>
             </div>
 
             {isExpanded && (
-                <div className="p-8 animate-in fade-in slide-in-from-top-4 duration-500">
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="p-5">
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Input
                                 label="Group Name"
                                 placeholder="e.g. developers"
@@ -74,13 +69,13 @@ const AddGroupForm = ({ users, onAdd }) => {
                             />
                         </div>
 
-                        <div className="pt-6 border-t border-gray-50 flex justify-end items-center gap-4">
+                        <div className="flex justify-end items-center border-t border-border pt-4">
                             <Button
                                 type="submit"
+                                variant="primary"
                                 className="w-full sm:w-auto"
-                                bgColor="bg-indigo-600"
                                 disabled={!canSubmit}
-                                icon={<i className="fas fa-plus-circle"></i>}
+                                icon={<i className="fas fa-plus-circle" />}
                                 onClick={handleSubmit}
                             >
                                 Create Group
@@ -89,7 +84,7 @@ const AddGroupForm = ({ users, onAdd }) => {
                     </form>
                 </div>
             )}
-        </div>
+        </section>
     );
 };
 

@@ -105,7 +105,7 @@ const QUserPrivileges = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-600"></div>
             </div>
         );
     }
@@ -113,37 +113,33 @@ const QUserPrivileges = () => {
     const dropdownOptions = allUsers.map((u, i) => ({ label: u.name, value: i }));
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-8">
-                            <div>
-                                <h1 className="text-3xl font-black text-gray-800 tracking-tight">Granular User Privileges Management</h1>
-                                <p className="text-gray-500 mt-1 font-medium">Define precise administrative access for system operators</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Button
-                                    onClick={() => loadUsers()}
-                                    bgColor="bg-white"
-                                    textColor="text-gray-400"
-                                    className="border border-gray-100 hover:text-blue-500 rounded-xl shadow-sm transition-all"
-                                    icon={<i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`}></i>}
-                                />
-                            </div>
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Granular User Privileges Management</h1>
+                        <p className="mt-1 text-sm text-gray-500">Define precise administrative access for system operators</p>
+                    </div>
+                    <button
+                        onClick={() => loadUsers()}
+                        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-gray-50 hover:text-brand-600"
+                    >
+                        <i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`} />
+                    </button>
+                </div>
 
-                        <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative group">
-                            <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-3xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
+                <div className="mt-6 space-y-6">
+                <div className="overflow-hidden rounded-lg border border-border bg-surface p-6 shadow-sm">
+                            <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-brand-500 rounded-l-lg shadow-sm"></div>
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center">
+                                    <div className="w-10 h-10 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center">
                                         <i className="fas fa-shield-alt text-xs"></i>
                                     </div>
                                     <h3 className="text-lg font-bold text-gray-800 tracking-tight">Privilege Manifest</h3>
                                 </div>
                                 <div className="w-full md:w-72">
-                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block">Operating Identity</label>
+                                    <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 ml-1 mb-2 block">Operating Identity</label>
                                     <Dropdown
                                         options={dropdownOptions}
                                         value={selectedUserId}
@@ -158,23 +154,23 @@ const QUserPrivileges = () => {
                                     <div
                                         key={p.id}
                                         onClick={() => togglePrivilege(p.id)}
-                                        className={`group cursor-pointer p-4 rounded-2xl border transition-all duration-200 flex items-center gap-4 ${privileges[p.id]
-                                            ? 'bg-indigo-600 border-indigo-600 shadow-md shadow-indigo-100'
-                                            : 'bg-gray-50/50 border-transparent hover:border-indigo-100 hover:bg-white hover:shadow-sm'
+                                        className={`group cursor-pointer p-4 rounded-lg border transition-all duration-200 flex items-center gap-4 ${privileges[p.id]
+                                            ? 'bg-brand-600 border-brand-600 shadow-md'
+                                            : 'bg-gray-50/50 border-transparent hover:border-brand-100 hover:bg-white hover:shadow-sm'
                                             }`}
                                     >
-                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${privileges[p.id] ? 'bg-white/20' : 'bg-white group-hover:bg-indigo-50'
+                                        <div className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors ${privileges[p.id] ? 'bg-white/20' : 'bg-white group-hover:bg-brand-50'
                                             }`}>
-                                            <i className={`${p.icon} text-sm ${privileges[p.id] ? 'text-white' : 'text-gray-400 group-hover:text-indigo-500'}`}></i>
+                                            <i className={`${p.icon} text-sm ${privileges[p.id] ? 'text-white' : 'text-gray-400 group-hover:text-brand-600'}`}></i>
                                         </div>
                                         <div className="flex-1">
-                                            <p className={`text-[11px] font-black uppercase tracking-wider ${privileges[p.id] ? 'text-white' : 'text-gray-600'}`}>
+                                            <p className={`text-xs font-semibold uppercase tracking-wide ${privileges[p.id] ? 'text-white' : 'text-gray-600'}`}>
                                                 {p.label}
                                             </p>
                                         </div>
                                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${privileges[p.id] ? 'bg-white border-white' : 'border-gray-200 bg-white'
                                             }`}>
-                                            {privileges[p.id] && <i className="fas fa-check text-[8px] text-indigo-600"></i>}
+                                            {privileges[p.id] && <i className="fas fa-check text-[8px] text-brand-600"></i>}
                                         </div>
                                     </div>
                                 ))}
@@ -183,7 +179,7 @@ const QUserPrivileges = () => {
                             <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-gray-50">
                                 <div className="flex items-center gap-4">
                                     {message.text && (
-                                        <div className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold animate-in fade-in slide-in-from-left-4 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-rose-50 text-rose-600 border border-rose-100'
+                                        <div className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs font-medium ${message.type === 'success' ? 'bg-success-50 text-success-600 border border-success-100' : 'bg-danger-50 text-danger-600 border border-danger-100'
                                             }`}>
                                             <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
                                             {message.text}
@@ -193,8 +189,8 @@ const QUserPrivileges = () => {
                                 <Button
                                     onClick={handleUpdate}
                                     disabled={updating || selectedUserId === null}
-                                    bgColor="bg-indigo-600"
-                                    className="w-full sm:w-auto px-8 py-3 font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-3"
+                                    variant="primary"
+                                    className="w-full sm:w-auto flex items-center justify-center gap-3"
                                 >
                                     {updating ? (
                                         <>
@@ -210,7 +206,6 @@ const QUserPrivileges = () => {
                                 </Button>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

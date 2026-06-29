@@ -115,108 +115,71 @@ const QServicePerformance = () => {
     }, [loadData]);
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-10">
-                            <div>
-                                <p className="text-lg text-gray-500 font-medium tracking-tight">Real-time ZFS heuristics and cluster orchestration vitals</p>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Service Performance</h1>
+                        <p className="mt-1 text-sm text-gray-500">Real-time ZFS heuristics and cluster orchestration vitals</p>
+                    </div>
+                    <div className="flex gap-3">
+                        <div className="flex items-center gap-2 rounded-full border border-border bg-surface-muted px-3 py-1.5">
+                            <span className="h-2 w-2 rounded-full bg-success-500 animate-pulse"></span>
+                            <span className="text-xs font-medium text-gray-600">Active Pulse</span>
+                        </div>
+                        <a href="http://10.11.11.250:4000" target="_blank" rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-medium text-brand-600 hover:bg-gray-50">
+                            <i className="fas fa-external-link-alt" /> Launch Grafana
+                        </a>
+                    </div>
+                </div>
+
+                <div className="mt-6 space-y-6">
+                    {/* Inventory Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <MetricCard title="Cluster Identity" value={`${summary.users}`} unit="Users Active" icon="fa-users" color="indigo" />
+                        <MetricCard title="Storage Fabric" value={`${summary.pools}`} unit="Healthy Pools" icon="fa-layer-group" color="emerald" />
+                        <MetricCard title="Active Shares" value={`${(summary.volumes.cifs || 0) + (summary.volumes.nfs || 0) + (summary.volumes.iscsi || 0)}`} unit="Mount Points" icon="fa-network-wired" color="blue" />
+                        <MetricCard title="ZFS ARC Cache" value={liveStats.arcHitRate} unit="Hit Ratio %" icon="fa-bolt" color="amber" />
+                    </div>
+
+                    {/* Performance Charts */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <PerformanceChart title="Storage Throughput (MB/s)" icon="fa-hdd" data={metrics.io} color="blue" />
+                        <PerformanceChart title="CPU Utilization & Load (%)" icon="fa-microchip" data={metrics.cpu} color="emerald" />
+                    </div>
+
+                    {/* Stats Row */}
+                    <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 text-white">
+                        <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
+                            <div className="max-w-md">
+                                <h4 className="text-lg font-semibold mb-2 text-brand-400">Heuristic Optimization</h4>
+                                <p className="text-gray-400 text-sm leading-relaxed">
+                                    Your ZFS Adaptive Replacement Cache is performing at peak efficiency. No memory pressure detected in the last 24 hours.
+                                </p>
                             </div>
-                            <div className="flex gap-4">
-                                <div className="px-4 py-2 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-3">
-                                    <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></div>
-                                    <span className="text-xs font-black text-gray-500 uppercase tracking-widest">Active Pulse</span>
+                            <div className="flex gap-10 text-center">
+                                <div>
+                                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">ARC Size</p>
+                                    <p className="text-2xl font-bold text-brand-400">{liveStats.arcSizeGB} <small className="text-xs text-gray-400 font-medium">GB</small></p>
                                 </div>
-                                <a href="http://10.11.11.250:4000" target="_blank" rel="noreferrer" className="px-4 py-2 bg-white rounded-2xl border border-gray-100 shadow-sm flex items-center gap-3 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <i className="fas fa-external-link-alt text-blue-500 text-xs"></i>
-                                    <span className="text-xs font-black text-blue-600 uppercase tracking-widest hover:underline">Launch Grafana</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        {/* Inventory Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                            <MetricCard
-                                title="Cluster Identity"
-                                value={`${summary.users}`}
-                                unit="Users Active"
-                                icon="fa-users"
-                                color="indigo"
-                            />
-                            <MetricCard
-                                title="Storage Fabric"
-                                value={`${summary.pools}`}
-                                unit="Health Pools"
-                                icon="fa-layer-group"
-                                color="emerald"
-                            />
-                            <MetricCard
-                                title="Active Shares"
-                                value={`${(summary.volumes.cifs || 0) + (summary.volumes.nfs || 0) + (summary.volumes.iscsi || 0)}`}
-                                unit="Mount Points"
-                                icon="fa-network-wired"
-                                color="blue"
-                            />
-                            <MetricCard
-                                title="ZFS ARC Cache"
-                                value={liveStats.arcHitRate}
-                                unit="Hit Ratio %"
-                                icon="fa-bolt"
-                                color="amber"
-                            />
-                        </div>
-
-                        {/* Performance Charts Grid */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                            <PerformanceChart
-                                title="Storage Throughput (MB/s)"
-                                icon="fa-hdd"
-                                data={metrics.io}
-                                color="blue"
-                            />
-                            <PerformanceChart
-                                title="CPU Utilization & Load (%)"
-                                icon="fa-microchip"
-                                data={metrics.cpu}
-                                color="emerald"
-                            />
-                        </div>
-
-                        {/* Optimization Stats Row */}
-                        <div className="bg-gray-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden mb-20">
-                            <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-blue-500/10 to-transparent"></div>
-                            <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-10">
-                                <div className="max-w-md">
-                                    <h4 className="text-2xl font-black mb-3 tracking-tight text-blue-400">Heuristic Optimization</h4>
-                                    <p className="text-gray-400 font-medium text-sm leading-relaxed">
-                                        Your ZFS Adaptive Replacement Cache is performing at <span className="text-white font-bold italic underline decoration-blue-500 underline-offset-4 pointer-events-none">peak efficiency</span>. No memory pressure detected in the last 24 hours.
-                                    </p>
+                                <div className="w-px bg-gray-800" />
+                                <div>
+                                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">ARC Hit Rate</p>
+                                    <p className="text-2xl font-bold text-success-500">{liveStats.arcHitRate} <small className="text-xs text-gray-400 font-medium">%</small></p>
                                 </div>
-                                <div className="flex gap-12 text-center">
-                                    <div>
-                                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-3">ARC Size</p>
-                                        <p className="text-3xl font-black tracking-tighter text-blue-500">{liveStats.arcSizeGB} <small className="text-xs uppercase text-gray-400 tracking-widest font-bold">GB</small></p>
-                                    </div>
-                                    <div className="w-px h-12 bg-gray-800 self-center"></div>
-                                    <div>
-                                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-3">iSCSI ZVOL Latency</p>
-                                        <p className="text-3xl font-black tracking-tighter text-emerald-500">{liveStats.zvolLatency} <small className="text-xs uppercase text-gray-400 tracking-widest font-bold">ms</small></p>
-                                    </div>
+                                <div className="w-px bg-gray-800" />
+                                <div>
+                                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">iSCSI Latency</p>
+                                    <p className="text-2xl font-bold text-success-500">{liveStats.zvolLatency} <small className="text-xs text-gray-400 font-medium">ms</small></p>
                                 </div>
-                                <Button
-                                    bgColor="bg-blue-600"
-                                    className="px-6 py-2.5 rounded-2xl font-bold text-sm shadow-xl shadow-blue-500/20 transition-all hover:-translate-y-1"
-                                >
-                                    View Disk Topology
-                                </Button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+)};
 
 export default QServicePerformance;
+

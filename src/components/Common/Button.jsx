@@ -1,22 +1,16 @@
 import React from 'react';
 
 /**
- * Shared Button Component
- * 
- * @param {string} bgColor - Background color class (e.g., 'bg-emerald-600') or hex
- * @param {string} textColor - Text color class (e.g., 'text-white') or hex
- * @param {string} borderRadius - Optional border radius class (default: 'rounded-lg')
- * @param {React.ReactNode} icon - Optional icon element
- * @param {function} onClick - Click handler function
- * @param {boolean} disabled - Optional disabled state
- * @param {string} className - Optional additional classes
- * @param {string} type - Button type (default: 'button')
- * @param {React.ReactNode} children - Button text/content
+ * Design-system Button
+ * variant: 'primary' | 'secondary' | 'ghost' | 'danger'
+ * size: 'sm' | 'md'
+ * Legacy bgColor prop is mapped to a variant for backward compatibility.
  */
 const Button = ({
-    bgColor = 'bg-emerald-600',
-    textColor = 'text-white',
-    borderRadius = 'rounded-lg',
+    variant,
+    bgColor,
+    textColor,
+    size = 'md',
     icon,
     onClick,
     disabled = false,
@@ -25,25 +19,26 @@ const Button = ({
     children,
     ...props
 }) => {
-    // Determine background style (class vs hex)
-    const isHexBg = bgColor.startsWith('#');
-    const isHexText = textColor.startsWith('#');
+    // Backward-compat: map legacy bgColor to variant
+    const resolvedVariant = variant ?? (
+        bgColor?.includes('rose') || bgColor?.includes('red') || bgColor?.includes('danger') ? 'danger' :
+        bgColor === 'bg-white' || bgColor?.includes('white') || bgColor?.includes('gray') ? 'secondary' :
+        bgColor?.includes('emerald') || bgColor?.includes('green') ? 'primary' :
+        'primary'
+    );
 
-    const baseStyles = `
-        w-full sm:w-auto px-8 py-2.5 font-medium shadow-sm 
-        transition-all duration-200 flex items-center justify-center gap-2
-        ${borderRadius}
-        active:transform active:scale-95
-    `;
+    const base = 'inline-flex items-center justify-center gap-2 font-semibold rounded-md shadow-xs transition-colors focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed';
 
-    const stateStyles = disabled
-        ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-100 shadow-none transform-none'
-        : `${!isHexBg ? bgColor : ''} ${!isHexText ? textColor : ''} hover:shadow-md hover:brightness-110`;
+    const sizes = {
+        sm: 'px-3 py-1.5 text-xs',
+        md: 'px-4 py-2.5 text-sm',
+    };
 
-    const inlineStyles = {
-        backgroundColor: !disabled && isHexBg ? bgColor : undefined,
-        color: !disabled && isHexText ? textColor : undefined,
-        ...props.style
+    const variants = {
+        primary: 'bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-100',
+        secondary: 'border border-border bg-surface text-gray-700 hover:bg-gray-50 hover:text-brand-600 focus:ring-brand-100',
+        ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 shadow-none focus:ring-gray-200',
+        danger: 'bg-danger-600 text-white hover:bg-danger-700 focus:ring-danger-100',
     };
 
     return (
@@ -51,11 +46,10 @@ const Button = ({
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${baseStyles} ${stateStyles} ${className}`}
-            style={inlineStyles}
+            className={`${base} ${sizes[size] ?? sizes.md} ${variants[resolvedVariant] ?? variants.primary} ${className}`}
             {...props}
         >
-            {icon && <span className="flex items-center justify-center">{icon}</span>}
+            {icon && <span className="flex items-center">{icon}</span>}
             {children}
         </button>
     );

@@ -52,7 +52,7 @@ const CustomTimePicker = ({ value, onChange, disabled }) => {
         <div className="relative" ref={containerRef}>
             <div
                 onClick={() => !disabled && setIsOpen(!isOpen)}
-                className={`w-full px-4 py-3 bg-gray-50 border-none rounded-2xl text-sm font-bold text-gray-700 flex items-center justify-between cursor-pointer transition-all ${isOpen ? 'ring-2 ring-indigo-500' : ''
+                className={`w-full px-4 py-3 bg-gray-50 border-none rounded-2xl text-sm font-bold text-gray-700 flex items-center justify-between cursor-pointer transition-all ${isOpen ? 'ring-2 ring-brand-500' : ''
                     } ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
             >
                 <span>{value || '11:50 PM'}</span>
@@ -68,7 +68,7 @@ const CustomTimePicker = ({ value, onChange, disabled }) => {
                             <button
                                 key={h}
                                 onClick={() => updateTime({ ...time, hour: h })}
-                                className={`w-full py-2 px-3 rounded-xl text-sm font-bold transition-all mb-1 ${time.hour === h ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'text-gray-600 hover:bg-gray-50'
+                                className={`w-full py-2 px-3 rounded-xl text-sm font-bold transition-all mb-1 ${time.hour === h ? 'bg-brand-600 text-white shadow-lg shadow-brand-100' : 'text-gray-600 hover:bg-gray-50'
                                     }`}
                             >
                                 {h}
@@ -83,7 +83,7 @@ const CustomTimePicker = ({ value, onChange, disabled }) => {
                             <button
                                 key={m}
                                 onClick={() => updateTime({ ...time, minute: m })}
-                                className={`w-full py-2 px-3 rounded-xl text-sm font-bold transition-all mb-1 ${time.minute === m ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'text-gray-600 hover:bg-gray-50'
+                                className={`w-full py-2 px-3 rounded-xl text-sm font-bold transition-all mb-1 ${time.minute === m ? 'bg-brand-600 text-white shadow-lg shadow-brand-100' : 'text-gray-600 hover:bg-gray-50'
                                     }`}
                             >
                                 {m}
@@ -98,7 +98,7 @@ const CustomTimePicker = ({ value, onChange, disabled }) => {
                             <button
                                 key={p}
                                 onClick={() => updateTime({ ...time, period: p })}
-                                className={`w-full py-2 px-3 rounded-xl text-sm font-bold transition-all mb-1 ${time.period === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'text-gray-600 hover:bg-gray-50'
+                                className={`w-full py-2 px-3 rounded-xl text-sm font-bold transition-all mb-1 ${time.period === p ? 'bg-brand-600 text-white shadow-lg shadow-brand-100' : 'text-gray-600 hover:bg-gray-50'
                                     }`}
                             >
                                 {p}

@@ -24,7 +24,7 @@ const PerformanceChart = ({ title, icon, data, color }) => {
                     <h3 className="text-lg font-bold text-gray-800 tracking-tight">{title}</h3>
                 </div>
                 <div className="flex gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-success-500 animate-pulse"></span>
                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Live Feed</span>
                 </div>
             </div>
@@ -55,7 +55,7 @@ const PerformanceChart = ({ title, icon, data, color }) => {
                     </div>
                 </div>
                 <div className="flex flex-col items-end">
-                    <span className={`text-xs font-black uppercase tracking-widest px-2 py-0.5 rounded-md border ${color === 'amber' ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                    <span className={`text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-md border ${color === 'amber' ? 'bg-warning-50 text-warning-600 border-warning-100' : 'bg-brand-50 text-brand-600 border-brand-100'}`}>
                         {color === 'amber' ? 'Warning Thr.' : 'Stable'}
                     </span>
                 </div>

@@ -42,36 +42,35 @@ const QLogin = ({ onLoginSuccess }) => {
     };
 
     return (
-        <div className="login-page flex items-center justify-center min-h-screen bg-[#F1F5F9] font-['Inter',_sans-serif]">
+        <div className="login-page flex items-center justify-center min-h-screen bg-canvas font-sans">
             <style>
                 {`
                     .enterprise-input {
                         background: #FFFFFF !important;
-                        border: 1px solid #E2E8F0 !important;
-                        color: #1E293B !important;
-                        font-size: 0.95rem !important;
+                        border: 1px solid #E2E7EE !important;
+                        color: #1A2231 !important;
+                        font-size: 0.875rem !important;
                         height: 44px !important;
                         padding-left: 40px !important;
                         padding-right: 40px !important;
-                        border-radius: 8px !important;
-                        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                        border-radius: 6px !important;
+                        transition: border-color 0.15s, box-shadow 0.15s !important;
                         width: 100% !important;
                         outline: none !important;
                     }
                     .enterprise-input:focus {
                         border-color: #495BE2 !important;
-                        ring: 2px solid rgba(73, 91, 226, 0.2) !important;
-                        box-shadow: 0 0 0 3px rgba(73, 91, 226, 0.1) !important;
+                        box-shadow: 0 0 0 3px rgba(73, 91, 226, 0.12) !important;
                     }
                     .enterprise-input:-webkit-autofill {
                         -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-                        -webkit-text-fill-color: #1E293B !important;
+                        -webkit-text-fill-color: #1A2231 !important;
                     }
                     .login-card {
                         background: #FFFFFF;
                         border-radius: 12px;
-                        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-                        border: 1px solid #E2E8F0;
+                        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.08), 0 1px 2px 0 rgba(0,0,0,0.04);
+                        border: 1px solid #E2E7EE;
                         width: 100%;
                         max-width: 400px;
                     }
@@ -93,7 +92,7 @@ const QLogin = ({ onLoginSuccess }) => {
                 <div className="mb-8 text-center">
                     <div className="flex items-center justify-center gap-3 mb-2">
                         <img src="dist/img/Quickstor icon.png" alt="Logo" className="w-8 h-8" />
-                        <h1 className="text-2xl font-bold text-[#1E293B] tracking-tight">QuickStor</h1>
+                        <h1 className="text-2xl font-bold text-gray-900 tracking-tight">QuickStor</h1>
                     </div>
                 </div>
 
@@ -102,9 +101,9 @@ const QLogin = ({ onLoginSuccess }) => {
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div>
-                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Username</label>
+                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Username</label>
                             <div className="relative group">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#495BE2] transition-colors">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-brand-600 transition-colors">
                                     <User size={18} strokeWidth={2} />
                                 </div>
                                 <input
@@ -121,9 +120,9 @@ const QLogin = ({ onLoginSuccess }) => {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Password</label>
+                            <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Password</label>
                             <div className="relative group">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#495BE2] transition-colors">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-brand-600 transition-colors">
                                     <Lock size={18} strokeWidth={2} />
                                 </div>
                                 <input
@@ -150,14 +149,14 @@ const QLogin = ({ onLoginSuccess }) => {
                             <button
                                 type="submit"
                                 disabled={loading || !user || !pass}
-                                className="w-full flex justify-center items-center h-11 px-4 border border-transparent rounded-lg text-sm font-bold text-white bg-[#495BE2] hover:bg-[#3746CC] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#495BE2] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                                className="w-full flex justify-center items-center h-11 px-4 rounded-md text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
                             >
                                 {loading ? 'Signing in...' : 'Sign In'}
                             </button>
                         </div>
 
                         {error && (
-                            <div className="flex items-center gap-2 text-red-600 text-[0.8rem] font-semibold bg-red-50 p-3 rounded-lg border border-red-100 mt-4">
+                            <div className="flex items-center gap-2 rounded-md border border-danger-100 bg-danger-50 p-3 text-sm text-danger-600 mt-4">
                                 <AlertCircle size={16} />
                                 <span>{error}</span>
                             </div>
@@ -165,7 +164,7 @@ const QLogin = ({ onLoginSuccess }) => {
                     </form>
                 </div>
 
-                <p className="mt-8 text-xs text-gray-400 font-medium">
+                <p className="mt-8 text-xs text-gray-400">
                     &copy; {new Date().getFullYear()} QuickStor Systems Inc. All rights reserved.
                 </p>
             </div>

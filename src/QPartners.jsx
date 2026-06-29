@@ -99,48 +99,45 @@ const QPartners = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-600"></div>
             </div>
         );
     }
 
     return (
-        <div className="content-wrapper">
-            <div className="floating-canvas">
-                <div className="content-header px-4">
-                    <div className="container-fluid">
-                        <div className="flex justify-between items-center mb-10">
-                            <div>
-                                <h1 className="text-2xl font-black text-gray-800 tracking-tight">Partner Ecosystem</h1>
-                                <p className="text-xs text-gray-400 mt-0.5 font-medium uppercase tracking-wider">Manage replication partners and secure communication channels</p>
-                            </div>
-                            <Button
-                                onClick={() => loadPartners()}
-                                bgColor="bg-white"
-                                textColor="text-gray-400"
-                                className="border border-gray-100 hover:text-indigo-500 rounded-xl shadow-sm transition-all"
-                                icon={<RefreshCw size={16} className={loading ? 'animate-spin' : ''} />}
-                            />
-                        </div>
+        <div className="p-3 sm:p-5">
+            <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-sm">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Partner Ecosystem</h1>
+                        <p className="mt-1 text-sm text-gray-500">Manage replication partners and secure communication channels</p>
+                    </div>
+                    <button
+                        onClick={() => loadPartners()}
+                        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-gray-50 hover:text-brand-600"
+                    >
+                        <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                    </button>
+                </div>
 
-                        {message.text && (
-                            <div className={`mb-8 p-4 rounded-2xl flex items-center gap-3 text-sm font-bold animate-in fade-in slide-in-from-top-4 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-rose-50 text-rose-600 border border-rose-100'}`}>
-                                <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
-                                {message.text}
-                            </div>
-                        )}
+                {message.text && (
+                    <div className={`mt-4 flex items-center gap-3 rounded-md border px-4 py-3 text-sm ${message.type === 'success' ? 'border-success-100 bg-success-50 text-success-600' : 'border-danger-100 bg-danger-50 text-danger-600'}`}>
+                        <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}`} />
+                        {message.text}
+                    </div>
+                )}
 
-                        <div className="flex flex-col gap-8">
+                <div className="mt-6 space-y-6">
+                <div className="flex flex-col gap-8">
                             {/* New Partner Form */}
                             <div>
-                                <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 relative group">
-                                    <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
+                                <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm p-6">
 
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center shadow-sm">
+                                    <div className="flex items-center gap-3 mb-5">
+                                        <div className="w-9 h-9 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center">
                                             <HandHelping size={20} />
                                         </div>
-                                        <h3 className="text-lg font-bold text-gray-800 tracking-tight">Provision Partner</h3>
+                                        <h3 className="text-base font-semibold text-gray-800">Provision Partner</h3>
                                     </div>
 
                                     <form onSubmit={handleAddPartner} className="space-y-6">
@@ -195,8 +192,8 @@ const QPartners = () => {
                                         <div className="pt-4 border-t border-gray-50">
                                             <Button
                                                 type="submit"
-                                                className="w-full py-3 text-[10px] font-black uppercase tracking-[0.2em] shadow-md shadow-indigo-100 transition-all hover:-translate-y-0.5"
-                                                bgColor="bg-indigo-600"
+                                                className="w-full"
+                                                variant="primary"
                                                 disabled={!canSubmit || actionLoading === 'add'}
                                                 icon={<PlusCircle size={16} />}
                                                 onClick={handleAddPartner}
@@ -210,17 +207,16 @@ const QPartners = () => {
 
                             {/* Partner List */}
                             <div>
-                                <div className="bg-white rounded-xl shadow-sm border border-gray-100 relative group overflow-visible">
-                                    <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-indigo-500 rounded-l-xl shadow-[2px_0_10px_rgba(99,102,241,0.2)]"></div>
+                                <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-sm">
 
-                                    <div className="px-8 py-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/30 rounded-t-xl">
+                                    <div className="px-5 py-4 border-b border-border flex justify-between items-center bg-surface-muted">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center">
+                                            <div className="w-9 h-9 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center">
                                                 <i className="fas fa-list-ul text-xs"></i>
                                             </div>
-                                            <h3 className="text-lg font-bold text-gray-800 tracking-tight">Active Relationships</h3>
+                                            <h3 className="text-base font-semibold text-gray-800">Active Relationships</h3>
                                         </div>
-                                        <span className="px-3 py-1 bg-white border border-gray-100 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-widest shadow-sm">
+                                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-3 py-1 text-xs font-medium text-gray-600">
                                             {partners.length} Total
                                         </span>
                                     </div>
@@ -228,19 +224,19 @@ const QPartners = () => {
                                     <div className="p-0 overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
                                             <thead>
-                                                <tr className="bg-gray-50/50">
-                                                    <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Alias</th>
-                                                    <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Network Info</th>
-                                                    <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-center">Type</th>
-                                                    <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-right">Actions</th>
+                                                <tr className="bg-surface-muted">
+                                                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border">Alias</th>
+                                                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border">Network Info</th>
+                                                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border text-center">Type</th>
+                                                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 border-b border-border text-right">Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-gray-50">
+                                            <tbody className="divide-y divide-border">
                                                 {partners.map((partner, index) => (
                                                     <tr key={index} className="hover:bg-gray-50/50 transition-colors group">
                                                         <td className="px-8 py-4">
                                                             <div className="flex items-center gap-3">
-                                                                <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-[10px] font-bold shadow-sm">
+                                                                <div className="w-8 h-8 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center text-xs font-semibold">
                                                                     {partner.alias.charAt(0).toUpperCase()}
                                                                 </div>
                                                                 <span className="font-bold text-gray-700 text-sm">{partner.alias.split('_')[0]}</span>
@@ -253,9 +249,9 @@ const QPartners = () => {
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-4 text-center">
-                                                            <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${partner.type === 'Dual way' ? 'bg-indigo-50 text-indigo-600 border border-indigo-100' :
-                                                                partner.type === 'Sender' ? 'bg-blue-50 text-blue-600 border border-blue-100' :
-                                                                    'bg-emerald-50 text-emerald-600 border border-emerald-100'
+                                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${partner.type === 'Dual way' ? 'bg-brand-50 text-brand-600 border border-brand-100' :
+                                                                partner.type === 'Sender' ? 'bg-info-50 text-info-600 border border-info-100' :
+                                                                    'bg-success-50 text-success-600 border border-success-100'
                                                                 }`}>
                                                                 {partner.type}
                                                             </span>
@@ -264,11 +260,11 @@ const QPartners = () => {
                                                             <button
                                                                 onClick={() => handleDeletePartner(partner.alias)}
                                                                 disabled={actionLoading === `delete-${partner.alias}`}
-                                                                className="w-9 h-9 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm hover:shadow-rose-100"
+                                                                className="w-9 h-9 rounded-md bg-danger-50 text-danger-500 flex items-center justify-center hover:bg-danger-500 hover:text-white transition-all shadow-xs"
                                                                 title="Delete Partner"
                                                             >
                                                                 {actionLoading === `delete-${partner.alias}` ? (
-                                                                    <div className="w-4 h-4 border-2 border-rose-200 border-t-rose-500 rounded-full animate-spin"></div>
+                                                                    <div className="w-4 h-4 border-2 border-danger-200 border-t-danger-500 rounded-full animate-spin"></div>
                                                                 ) : (
                                                                     <Trash2 size={14} />
                                                                 )}
@@ -298,7 +294,6 @@ const QPartners = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
